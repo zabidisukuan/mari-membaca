@@ -1,6 +1,8 @@
 // Jana gambar game menggunakan Codex CLI (ChatGPT image generation).
-// Guna: node tools/gen-images.mjs [bilangan-serentak]
-// Gambar asal (PNG besar) disimpan ke assets/img-src/<id>.png; yang sudah wujud dilangkau.
+// Guna: node tools/gen-images.mjs [bilangan-serentak] [manifest.json folder-output]
+// Tanpa manifest: senarai gambar daripada js/data.js ke assets/img-src/.
+// Manifest: [{ id, en, penuh? }]; penuh=true untuk adegan penuh (tanpa gaya latar putih).
+// Gambar asal (PNG besar) disimpan ke <folder>/<id>.png; yang sudah wujud dilangkau.
 // Kemudian jalankan tools/resize-images.ps1 untuk hasilkan assets/img/<id>.jpg.
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
@@ -13,7 +15,8 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace
 const DATA = require(path.join(root, 'js', 'data.js'));
 
 const CODEX = process.env.CODEX_BIN || findCodex();
-const OUT = path.join(root, 'assets', 'img-src');
+const MANIFEST = process.argv[3] && path.resolve(root, process.argv[3]);
+const OUT = path.resolve(root, process.argv[4] || path.join('assets', 'img-src'));
 const GEN = path.join(os.homedir(), '.codex', 'generated_images');
 const CONCURRENCY = Number(process.argv[2] || 4);
 
@@ -32,7 +35,8 @@ function findCodex() {
 
 function generate(item) {
   return new Promise((resolve) => {
-    const prompt = `Use your image generation tool to create exactly ONE image. ${STYLE}${item.en}. ` +
+    const gaya = item.penuh ? "Cute flat cartoon illustration for a Malaysian Year 1 children's reading game, bright cheerful colours, thick soft outlines, no written words, no letters, no watermark. Scene: " : STYLE;
+    const prompt = `Use your image generation tool to create exactly ONE image. ${gaya}${item.en}. ` +
       'Do not create or modify any files. Reply only with DONE.';
     // stdin mesti 'ignore': codex exec menunggu stdin jika ia paip yang terbuka
     const p = spawn(CODEX, ['exec', '--skip-git-repo-check', '-C', os.tmpdir(), prompt], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -55,7 +59,8 @@ function generate(item) {
 }
 
 fs.mkdirSync(OUT, { recursive: true });
-const todo = DATA.senaraiGambar().filter((g) => !fs.existsSync(path.join(OUT, `${g.id}.png`)));
+const senarai = MANIFEST ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : DATA.senaraiGambar();
+const todo = senarai.filter((g) => !fs.existsSync(path.join(OUT, `${g.id}.png`)));
 console.log(`Codex: ${CODEX}\n${todo.length} gambar perlu dijana (serentak: ${CONCURRENCY})`);
 
 let i = 0, ok = 0, fail = 0;
