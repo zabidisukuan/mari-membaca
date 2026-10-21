@@ -149,10 +149,17 @@ function binaSoalan(t) {
 
 // ---------- Paparan ----------
 
+// Hanya perkataan dalam DATA.senaraiGambar() yang ada fail gambar; elak 404 untuk perkataan lain
+const GAMBAR_ADA = new Set(DATA.senaraiGambar().map((g) => g.id));
+
 function gambarEl(img, e) {
   const box = U.el('div', 'gambar');
   const fallback = () => { box.innerHTML = `<span class="emoji">${e || '❓'}</span>`; };
-  if (!img) { fallback(); return box; }
+  if (!img || !GAMBAR_ADA.has(img)) {
+    // Tiada gambar dan tiada emoji: sembunyikan kotak supaya tidak tunjuk ❓
+    if (e) fallback(); else box.hidden = true;
+    return box;
+  }
   const im = new Image();
   im.alt = '';
   im.onerror = fallback;

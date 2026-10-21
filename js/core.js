@@ -164,9 +164,14 @@ function skrin(html) {
   window.scrollTo(0, 0);
 }
 
+// Laluan aset v2: semua PNG lutsinar kecuali latar peta (JPG)
+function laluanV2(id) {
+  return `assets/v2/${id}.${id === 'peta_pulau' ? 'jpg' : 'png'}`;
+}
+
 // Pembantu imej Aset v2 dengan sandaran onerror
 function imgV2(id, fallbackEmoji = '✨', cls = '', alt = '') {
   const safeAlt = esc(alt);
   const safeCls = esc(cls);
-  return `<img src="assets/v2/${id}.jpg" alt="${safeAlt}" class="${safeCls}" onerror="this.onerror=null;const s=document.createElement('span');s.className='img-fallback ${safeCls}';s.innerHTML='${fallbackEmoji}';this.replaceWith(s);">`;
+  return `<img src="${laluanV2(id)}" alt="${safeAlt}" class="${safeCls}" onerror="this.onerror=null;const s=document.createElement('span');s.className='img-fallback ${safeCls}';s.innerHTML='${fallbackEmoji}';this.replaceWith(s);">`;
 }

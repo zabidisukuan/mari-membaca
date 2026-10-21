@@ -51,17 +51,17 @@ Gambar: `assets/img/<id>.jpg` dengan id = perkataan tanpa '-' (atau `img`). Fung
 
 ## 5. Aliran skrin
 1. **Daftar** (sama seperti v1: kod sekolah, nama sekolah, nama, tahun, kelas; URL `?kod=&sekolah=&tahun=&kelas=` mengisi awal; senarai murid lama sebagai cip).
-2. **Pilih watak**: Aiman (`assets/v2/aiman.jpg`) atau Aina (`aina.jpg`). Disimpan per murid (`Simpan` kunci `mm2_watak_<kunciMurid>`). Boleh tukar dari peta.
-3. **Peta Pulau Membaca**: latar `assets/v2/peta_pulau.jpg`; laluan berliku (SVG path di atas latar) melalui 12 lokasi (`lok_k01.jpg` … `lok_k12.jpg`) dengan nama lokasi. Avatar watak berdiri di lokasi terakhir yang dibuka dan **berjalan beranimasi** ke lokasi yang diketik. Lokasi terkunci kelabu dengan 🔒. Bar atas: nama murid, ⭐ jumlah bintang, butang 🎒 Beg, butang Tukar murid. Mod guru: ketik tajuk 5× → buka semua (kekal seperti v1, kunci `mm_mod_guru`).
-4. **Menu lokasi** (modal/skrin): nama lokasi, maskot Sang Kancil (`kancil_sapa.jpg`) dengan belon kata + 🔊 memperkenalkan lokasi, dan 3 butang besar:
+2. **Pilih watak**: Aiman (`assets/v2/aiman.png`) atau Aina (`aina.png`). Disimpan per murid (`Simpan` kunci `mm2_watak_<kunciMurid>`). Boleh tukar dari peta.
+3. **Peta Pulau Membaca**: latar `assets/v2/peta_pulau.jpg`; laluan berliku (SVG path di atas latar) melalui 12 lokasi (`lok_k01.png` … `lok_k12.png`) dengan nama lokasi. Avatar watak berdiri di lokasi terakhir yang dibuka dan **berjalan beranimasi** ke lokasi yang diketik. Lokasi terkunci kelabu dengan 🔒. Bar atas: nama murid, ⭐ jumlah bintang, butang 🎒 Beg, butang Tukar murid. Mod guru: ketik tajuk 5× → buka semua (kekal seperti v1, kunci `mm_mod_guru`).
+4. **Menu lokasi** (modal/skrin): nama lokasi, maskot Sang Kancil (`kancil_sapa.png`) dengan belon kata + 🔊 memperkenalkan lokasi, dan 3 butang besar:
    📘 **Tutorial** · ✏️ **Latihan** (tunjuk markah terbaik %) · 🎮 **Game** (terkunci sehingga Latihan ≥ 50%; tunjuk skor tertinggi).
-5. **Beg 🎒**: grid 12 barang ganjaran (`g_k01.jpg` … `g_k12.jpg`); yang belum diperoleh = siluet kelabu. Barang Kn diperoleh apabila Game Kn mendapat ≥ 1 bintang.
+5. **Beg 🎒**: grid 12 barang ganjaran (`g_k01.png` … `g_k12.png`); yang belum diperoleh = siluet kelabu. Barang Kn diperoleh apabila Game Kn mendapat ≥ 1 bintang.
 
 **Buka kunci:** K1 sentiasa terbuka; Kn+1 dibuka apabila Latihan Kn ≥ 50% (atau mod guru).
 
 ## 6. Tutorial (`js/tutorial.js`)
 `TUTORIAL['Kn'] = { pengenalan: 'teks', langkah: [ { teks: 'arahan maskot', demo: {...} } ] }` — 3 hingga 5 langkah.
-Paparan: maskot (`kancil_tunjuk.jpg`) + belon kata (teks + 🔊, mainkan automatik `Suara.main(teks)`), kawasan demo besar di bawah, butang ◀ Kembali / Seterusnya ▶, titik kemajuan. Langkah terakhir: "Syabas! Mari cuba Latihan" → pergi ke Latihan.
+Paparan: maskot (`kancil_tunjuk.png`) + belon kata (teks + 🔊, mainkan automatik `Suara.main(teks)`), kawasan demo besar di bawah, butang ◀ Kembali / Seterusnya ▶, titik kemajuan. Langkah terakhir: "Syabas! Mari cuba Latihan" → pergi ke Latihan.
 Jenis demo (animasi CSS, ketik untuk ulang & dengar):
 - `{ jenis:'huruf', huruf:['a','b','c'] }` — kad huruf besar; ketik → `Suara.main(huruf)`.
 - `{ jenis:'cantum', bahagian:['b','a'], hasil:'ba' }` — kepingan bergerak bercantum menjadi hasil, kemudian `Suara.main(hasil)`.
@@ -78,7 +78,7 @@ Kandungan tutorial: ringkas, bahasa mudah untuk murid 7 tahun, guna contoh darip
 
 ## 7. Latihan (`js/latihan.js`)
 Guna semula `binaSoalan(t)` dan `render(q, el, selesai)` daripada v1 TANPA mengubah logik soalan. `mainLatihan(t)` = fungsi `mainTahap` v1 (bar kemajuan, `window.soalanSemasa = q`, suara jawapan, keputusan) dengan perubahan:
-- Tema visual v2; maskot `kancil_gembira.jpg` di skrin keputusan (≥ 50%) atau `kancil_fikir.jpg` (< 50%, "Cuba lagi!").
+- Tema visual v2; maskot `kancil_gembira.png` di skrin keputusan (≥ 50%) atau `kancil_fikir.png` (< 50%, "Cuba lagi!").
 - Simpan kemajuan: `Murid.simpanKemajuan(id, peratus)` (sedia ada) dan **hantar ke Sheet**: `Markah.hantar(id, peratus)` — HANYA dari Latihan.
 - Butang keputusan: ↻ Ulang · 🎮 Main Game (jika ≥ 50%) · 🗺️ Peta.
 
@@ -86,7 +86,7 @@ Guna semula `binaSoalan(t)` dan `render(q, el, selesai)` daripada v1 TANPA mengu
 Antara muka seragam:
 ```js
 GAME['K4'] = {
-  nama: 'Tangkap Ikan', latar: 'assets/v2/lok_k04.jpg',
+  nama: 'Tangkap Ikan', latar: 'assets/v2/lok_k04.png',
   arahan: 'Tangkap ikan yang membawa perkataan untuk gambar ini!',
   mula(el, tahap, selesai) { /* lukis dalam el; panggil selesai({ skor, betul, salah }) bila tamat */ },
   henti() { /* bersihkan pemasa/animasi bila murid keluar */ },
@@ -102,23 +102,23 @@ Peraturan bersama (buat pembantu dalam `js/game/asas.js`, dimuat sebelum game la
 Game setiap konstruk (sprite dalam `assets/v2/`):
 | K | Game | Mekanik |
 |---|---|---|
-| K1 | **Pecah Belon** | Huruf sasaran dimainkan (`Suara.main(h)`) + dipapar kecil dengan 🔊. 4–5 belon (`s_belon.jpg`, warna berbeza melalui CSS `filter: hue-rotate`) terapung naik perlahan dari bawah, setiap satu membawa huruf (termasuk huruf serupa b/d/p/q). Ketik belon betul → meletup (animasi) → huruf baru. |
-| K2 | **Ulat Lapar** | Gambar perkataan (`gambar` K2) di atas. Ulat (`s_ulat_kepala.jpg`) di kiri. 4 daun (`s_daun.jpg`) membawa suku kata (betul + pengacau). Ketik suku kata mengikut urutan → ulat "makan" daun dan badannya bertambah satu segmen (`s_ulat_badan.jpg`) berlabel suku kata. Perkataan lengkap → dibaca. |
-| K3 | **Kereta Api Suku Kata** | Gambar K3. Kepala kereta (`s_kepala_kereta.jpg`) + slot gerabak kosong. Gerabak (`s_gerabak.jpg`) berlabel suku kata di bawah. Ketik ikut urutan → gerabak bersambung. Lengkap → kereta api bergerak keluar skrin, yang baru masuk. |
-| K4 | **Tangkap Ikan** | Gambar K4 di atas air. 3–4 ikan (`s_ikan.jpg`) berenang mendatar membawa perkataan KVK (betul + pengacau dari `senarai`). Ketik ikan betul → jaring (`s_jaring.jpg`) menangkap. |
-| K5 | **Katak Melompat** | Gambar K5. Sungai dengan baris batu (`s_batu.jpg`); setiap langkah ada 3 batu berlabel suku kata; ketik batu dengan suku kata seterusnya → katak (`s_katak.jpg`) melompat ke situ. Sampai seberang (perkataan lengkap) → perkataan baru. |
-| K6 | **Bakul Pasar** | Satu barang/perkataan muncul (perkataan K6 *atau* perkataan K2/K4 tanpa "ng" sebagai pengacau, ~50:50) dengan gambar jika ada. Dua bakul (`s_bakul.jpg`): "ada **ng**" dan "tiada **ng**". Ketik bakul betul → barang jatuh masuk. |
-| K7 | **Bot ke Pulau** | Tiga pulau (`s_pulau.jpg`) berlabel **ai**, **au**, **oi**. Bot (`s_bot.jpg`) membawa perkataan K7 (gambar + `senarai`). Ketik pulau dengan diftong yang betul → bot belayar ke situ. |
+| K1 | **Pecah Belon** | Huruf sasaran dimainkan (`Suara.main(h)`) + dipapar kecil dengan 🔊. 4–5 belon (`s_belon.png`, warna berbeza melalui CSS `filter: hue-rotate`) terapung naik perlahan dari bawah, setiap satu membawa huruf (termasuk huruf serupa b/d/p/q). Ketik belon betul → meletup (animasi) → huruf baru. |
+| K2 | **Ulat Lapar** | Gambar perkataan (`gambar` K2) di atas. Ulat (`s_ulat_kepala.png`) di kiri. 4 daun (`s_daun.png`) membawa suku kata (betul + pengacau). Ketik suku kata mengikut urutan → ulat "makan" daun dan badannya bertambah satu segmen (`s_ulat_badan.png`) berlabel suku kata. Perkataan lengkap → dibaca. |
+| K3 | **Kereta Api Suku Kata** | Gambar K3. Kepala kereta (`s_kepala_kereta.png`) + slot gerabak kosong. Gerabak (`s_gerabak.png`) berlabel suku kata di bawah. Ketik ikut urutan → gerabak bersambung. Lengkap → kereta api bergerak keluar skrin, yang baru masuk. |
+| K4 | **Tangkap Ikan** | Gambar K4 di atas air. 3–4 ikan (`s_ikan.png`) berenang mendatar membawa perkataan KVK (betul + pengacau dari `senarai`). Ketik ikan betul → jaring (`s_jaring.png`) menangkap. |
+| K5 | **Katak Melompat** | Gambar K5. Sungai dengan baris batu (`s_batu.png`); setiap langkah ada 3 batu berlabel suku kata; ketik batu dengan suku kata seterusnya → katak (`s_katak.png`) melompat ke situ. Sampai seberang (perkataan lengkap) → perkataan baru. |
+| K6 | **Bakul Pasar** | Satu barang/perkataan muncul (perkataan K6 *atau* perkataan K2/K4 tanpa "ng" sebagai pengacau, ~50:50) dengan gambar jika ada. Dua bakul (`s_bakul.png`): "ada **ng**" dan "tiada **ng**". Ketik bakul betul → barang jatuh masuk. |
+| K7 | **Bot ke Pulau** | Tiga pulau (`s_pulau.png`) berlabel **ai**, **au**, **oi**. Bot (`s_bot.png`) membawa perkataan K7 (gambar + `senarai`). Ketik pulau dengan diftong yang betul → bot belayar ke situ. |
 | K8 | **Roda Bunga** | Bunga besar: tengah = suku kata berganding (cth. *ia*, *au*, *ua*, *ui*); kelopak = 5–6 suku kata/konsonan. Arahan: "Bina perkataan **duit**" (dengan gambar jika ada) → ketik kelopak yang betul untuk bergabung dengan tengah. Guna perkataan K8 (`gambar`, `senarai`, `cantum`). |
-| K9 | **Pilih Kunci** | Pintu (`s_pintu.jpg`) dengan perkataan berlubang (cth. `__emah` + gambar). 3 kunci (`s_kunci.jpg`) berlabel opsyen (`isi[].opsyen` / `senarai[].opsyen`). Kunci betul → pintu terbuka (animasi) → perkataan dibaca. |
-| K10 | **Mesin Imbuhan** | Kata dasar masuk corong mesin (`s_mesin.jpg`). Tiga butang imbuhan pada mesin (betul + 2 lain). Ketik betul → hasil (cth. *membaca*) keluar di tali sawat. Guna `imbuhan`. |
+| K9 | **Pilih Kunci** | Pintu (`s_pintu.png`) dengan perkataan berlubang (cth. `__emah` + gambar). 3 kunci (`s_kunci.png`) berlabel opsyen (`isi[].opsyen` / `senarai[].opsyen`). Kunci betul → pintu terbuka (animasi) → perkataan dibaca. |
+| K10 | **Mesin Imbuhan** | Kata dasar masuk corong mesin (`s_mesin.png`). Tiga butang imbuhan pada mesin (betul + 2 lain). Ketik betul → hasil (cth. *membaca*) keluar di tali sawat. Guna `imbuhan`. |
 | K11 | **Kereta Api Ayat** | Gambar ayat (K11). Kepala kereta + slot gerabak = bilangan perkataan. Gerabak berlabel perkataan (dikocok). Ketik ikut urutan → bersambung. Lengkap → ayat dibaca, kereta bergerak. |
-| K12 | **Detektif Cerita** | Petikan (`petikan`) dipapar sebagai baris yang boleh diketik, dengan gambar. Soalan dipapar. Murid ketik **baris dalam petikan** yang mengandungi jawapan (kanta `s_kanta.jpg` mengikut kursor/ketikan dan menyerlah baris). Betul → jawapan diserlah. Untuk soalan "Adakah …" baris yang menjawab ialah baris berkaitan. Tentukan baris jawapan dengan mencari baris yang mengandungi perkataan kunci dari `opsyen[0]` (abaikan huruf besar/kecil; untuk "Ya, bas ini baru." gunakan baris yang mengandungi "baru"). |
+| K12 | **Detektif Cerita** | Petikan (`petikan`) dipapar sebagai baris yang boleh diketik, dengan gambar. Soalan dipapar. Murid ketik **baris dalam petikan** yang mengandungi jawapan (kanta `s_kanta.png` mengikut kursor/ketikan dan menyerlah baris). Betul → jawapan diserlah. Untuk soalan "Adakah …" baris yang menjawab ialah baris berkaitan. Tentukan baris jawapan dengan mencari baris yang mengandungi perkataan kunci dari `opsyen[0]` (abaikan huruf besar/kecil; untuk "Ya, bas ini baru." gunakan baris yang mengandungi "baru"). |
 
 ## 9. Gaya visual
 - Ceria, terang, mesra kanak-kanak, seperti contoh "Wira Cilik Bahasa" dan "Jom Baca": kecerunan langit (biru muda → hijau muda), kad putih bersudut bulat besar (24px), bayang lembut, butang "3D" (bayang bawah), animasi kecil (lantun, denyut, goyang) tetapi **tidak keterlaluan**.
 - Fon: 'Andika' untuk teks bacaan (huruf a/g satu tingkat — penting untuk murid), 'Baloo 2' untuk tajuk.
-- Sprite berlatar putih: gunakan `mix-blend-mode: multiply` di atas latar cerah supaya putih hilang.
+- Semua aset v2 (kecuali peta_pulau.jpg) ialah PNG LUTSINAR (`assets/v2/<id>.png`). JANGAN guna `mix-blend-mode`, latar putih atau kotak di belakang sprite.
 - `prefers-reduced-motion`: kurangkan animasi.
 
 ## 10. PWA

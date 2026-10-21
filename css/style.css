@@ -58,9 +58,9 @@ h1, h2, h3 {
   font-family: var(--fon-tajuk);
 }
 
-/* Sprite berlatar putih */
+/* Sprite ialah PNG lutsinar: tiada blend/latar diperlukan */
 .sprite-img, img.blend-multiply {
-  mix-blend-mode: multiply;
+  background: transparent;
 }
 
 /* Fallback elemen imej yang gagal muat */
@@ -2190,6 +2190,442 @@ form .besar {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* K5: Katak Melompat */
+.katak-game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.katak-gambar-box {
+  align-self: center;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.kata-sasaran-teks {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0284c7;
+}
+
+.sungai-pentas {
+  position: relative;
+  flex: 1;
+  min-height: 340px;
+  background: rgba(56, 189, 248, 0.25);
+  border: 2px solid #0284c7;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tebing {
+  padding: 6px 12px;
+  background: #86efac;
+  font-weight: 800;
+  color: #166534;
+  text-align: center;
+  z-index: 2;
+}
+
+.tebing-atas {
+  border-bottom: 2px solid #22c55e;
+}
+
+.tebing-bawah {
+  border-top: 2px solid #22c55e;
+  min-height: 48px;
+  position: relative;
+}
+
+.baris-batu-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 3;
+}
+
+.baris-batu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.batu-item {
+  position: relative;
+  background: transparent;
+  border: none;
+  width: 80px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.batu-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.batu-label {
+  position: relative;
+  z-index: 2;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+  text-shadow: 1px 1px 0 #ffffff;
+}
+
+.batu-item.dipijak {
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+.katak-posisi {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, 0);
+  transition: left 0.35s ease, bottom 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.katak-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* K6: Bakul Pasar */
+.bakul-game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 10px;
+}
+
+.bakul-pentas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.barang-drop-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+}
+
+.barang-card {
+  background: #ffffff;
+  border: 3px solid #fbbf24;
+  border-radius: 24px;
+  padding: 14px 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.barang-card.jatuh-masuk {
+  transform: translateY(110px) scale(0.3);
+  opacity: 0;
+}
+
+.barang-label {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.senarai-bakul-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  padding: 0 6px;
+}
+
+.bakul-item {
+  background: #ffffff;
+  border: 3px solid #f59e0b;
+  border-radius: 20px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+  flex: 1;
+  max-width: 155px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.bakul-img-box {
+  width: 65px;
+  height: 55px;
+}
+
+.bakul-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.bakul-label {
+  font-size: 1.15rem;
+  color: #78350f;
+}
+
+/* K7: Bot ke Pulau */
+.bot-game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.laut-pentas {
+  position: relative;
+  flex: 1;
+  min-height: 350px;
+  background: rgba(56, 189, 248, 0.2);
+  border: 2px solid #0284c7;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.senarai-pulau-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 6px;
+  z-index: 2;
+}
+
+.pulau-item {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pulau-img-box {
+  width: 80px;
+  height: 60px;
+}
+
+.pulau-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pulau-label {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0369a1;
+  background: #ffffff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-top: -6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bot-wrapper {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 5;
+}
+
+.bot-kandungan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bot-gambar-box {
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bot-teks-label {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: #ffffff;
+  padding: 4px 12px;
+  border-radius: 16px;
+  border: 2px solid #38bdf8;
+}
+
+.diftong-serlah {
+  color: #e11d48;
+  text-decoration: underline;
+  font-weight: 900;
+}
+
+.bot-sprite-box {
+  width: 85px;
+  height: 60px;
+}
+
+.bot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* K8: Roda Bunga */
+.bunga-game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 8px;
+}
+
+.bunga-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.bunga-gambar-box {
+  background: #ffffff;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.slot-bunga-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.slot-bunga {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 2px dashed #cbd5e1;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #334155;
+}
+
+.slot-bunga.diisi {
+  border-style: solid;
+  border-color: #22c55e;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.bunga-pentas {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 270px;
+}
+
+.roda-bunga {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  display: grid;
+  place-items: center;
+  transition: transform 0.8s ease-in-out;
+}
+
+.roda-bunga.bunga-putar {
+  transform: rotate(360deg);
+}
+
+.pusat-bunga {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #fde047;
+  border: 4px solid #eab308;
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.pusat-icon {
+  font-size: 2rem;
+}
+
+.kelopak-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.kelopak-item {
+  position: absolute;
+  top: calc(50% - 27px);
+  left: calc(50% - 27px);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.1);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.kelopak-label {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.kelopak-warna-1 { background: #fef08a; }
+.kelopak-warna-2 { background: #fbcfe8; }
+.kelopak-warna-3 { background: #bae6fd; }
+.kelopak-warna-4 { background: #bbf7d0; }
+.kelopak-warna-5 { background: #fed7aa; }
+
+.kelopak-item.dipilih {
+  opacity: 0.25;
+  pointer-events: none;
 }
 
 /* Penyesuaian Telefon Pintar (Mobile-first < 420px) */

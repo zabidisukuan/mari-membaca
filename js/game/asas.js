@@ -104,7 +104,7 @@ function mainGame(t) {
   function lancar() {
     skrin(`
       <div class="skrin-game-wrapper">
-        <div class="game-bg-overlay" style="background-image: url('assets/v2/${g.latar || 'lok_k01'}.jpg');"></div>
+        <div class="game-bg-overlay" style="background-image: url('${laluanV2(g.latar || 'lok_k01')}');"></div>
         <header class="atas bar-game">
           <button id="btnKeluarGame" class="kecil btn-keluar-game" aria-label="Keluar">✕</button>
           <div class="game-stat">
