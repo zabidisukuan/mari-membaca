@@ -2628,6 +2628,452 @@ form .besar {
   pointer-events: none;
 }
 
+/* K9: Pilih Kunci */
+.kunci-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.kunci-gambar-box {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pintu-pentas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.pintu-card {
+  position: relative;
+  width: 180px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 4px solid #b45309;
+  border-radius: 20px 20px 8px 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  transition: transform 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.pintu-card.pintu-terbuka {
+  transform: scale(1.05);
+  border-color: #22c55e;
+  background: rgba(220, 252, 231, 0.95);
+}
+
+.pintu-sprite-box {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pintu-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.pintu-perkataan {
+  margin-top: 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1e293b;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+}
+
+.pintu-perkataan .kata-penuh {
+  color: #15803d;
+}
+
+.kunci-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.kunci-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fef3c7;
+  border: 3px solid #f59e0b;
+  border-radius: 16px;
+  padding: 10px 16px;
+  min-width: 90px;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 5px 0 #d97706;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.kunci-btn:hover {
+  transform: translateY(-2px);
+  background: #fde68a;
+}
+
+.kunci-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #d97706;
+}
+
+.kunci-sprite-wrap {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kunci-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.kunci-label {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #78350f;
+  margin-top: 4px;
+}
+
+.kunci-btn.kunci-masuk {
+  animation: kunciMasuk 0.6s ease forwards;
+}
+
+@keyframes kunciMasuk {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2) translateY(-10px); }
+  100% { transform: scale(1); }
+}
+
+/* K10: Mesin Imbuhan */
+.mesin-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.corong-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid #cbd5e1;
+}
+
+.corong-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.kata-dasar-card {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2563eb;
+  background: #dbeafe;
+  padding: 4px 14px;
+  border-radius: 12px;
+  border: 2px solid #60a5fa;
+}
+
+.mesin-pentas {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.mesin-card {
+  position: relative;
+  width: 260px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 4px solid #475569;
+  border-radius: 24px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.mesin-card.mesin-goyang {
+  animation: mesinGoyang 0.5s ease-in-out;
+}
+
+@keyframes mesinGoyang {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-5deg) scale(1.02); }
+  40% { transform: rotate(5deg) scale(1.02); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(3deg); }
+}
+
+.mesin-sprite-wrap {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.mesin-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.panel-butang-imbuhan {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.imbuhan-btn {
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 0 #1d4ed8;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.imbuhan-btn:hover {
+  background: #2563eb;
+}
+
+.imbuhan-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1d4ed8;
+}
+
+.tali-sawat-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.tali-sawat-track {
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(45deg, #334155, #334155 10px, #64748b 10px, #64748b 20px);
+  border-radius: 5px;
+}
+
+.hasil-card {
+  margin-top: 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1e293b;
+  background: #ffffff;
+  border: 3px solid #cbd5e1;
+  padding: 8px 24px;
+  border-radius: 16px;
+  min-width: 140px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hasil-card.hasil-keluar {
+  border-color: #22c55e;
+  background: #dcfce7;
+  color: #15803d;
+  animation: hasilKeluar 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes hasilKeluar {
+  0% { transform: translateY(-15px) scale(0.8); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* K12: Detektif Cerita */
+.detektif-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.soalan-detektif-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fef3c7;
+  border: 3px solid #f59e0b;
+  padding: 10px 16px;
+  border-radius: 18px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.kanta-header-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kanta-header-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.teks-soalan-detektif {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #78350f;
+  margin: 0;
+}
+
+.petikan-detektif-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 3px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 14px;
+  width: 100%;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.petikan-gambar-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.baris-teks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.baris-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.baris-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.kanta-indicator {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.2;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.baris-btn.kanta-aktif .kanta-indicator {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.kanta-baris-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.baris-teks-isi {
+  flex: 1;
+}
+
+.baris-btn.baris-diserlah-betul {
+  background: #dcfce7 !important;
+  border-color: #22c55e !important;
+  color: #15803d !important;
+  transform: scale(1.02);
+}
+
+.baris-btn.baris-diserlah-salah {
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+}
+
+.jawapan-banner {
+  background: #22c55e;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.jawapan-banner.banner-muncul {
+  animation: bannerPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bannerPop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 /* Penyesuaian Telefon Pintar (Mobile-first < 420px) */
 @media (max-width: 420px) {
   body { font-size: 16px; }
