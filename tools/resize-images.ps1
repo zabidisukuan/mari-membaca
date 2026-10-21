@@ -1,10 +1,10 @@
 # Kecilkan gambar Codex (assets/img-src/*.png, ~1.2MB) kepada assets/img/<id>.jpg (480px) untuk game.
 # Latar gambar putih, jadi JPEG sesuai dan jauh lebih kecil.
-param([int]$Size = 480, [int]$Quality = 85)
+param([int]$Size = 480, [int]$Quality = 85, [string]$Src = 'assets\img-src', [string]$Dst = 'assets\img')
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path $PSScriptRoot -Parent
-$src = Join-Path $root 'assets\img-src'
-$dst = Join-Path $root 'assets\img'
+$src = Join-Path $root $Src
+$dst = Join-Path $root $Dst
 New-Item -ItemType Directory -Force $dst | Out-Null
 $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object MimeType -eq 'image/jpeg'
 $params = New-Object System.Drawing.Imaging.EncoderParameters 1
