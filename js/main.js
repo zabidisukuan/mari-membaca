@@ -2,6 +2,11 @@
 
 Markah.flush();
 
+// Daftar Service Worker
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
 // Mula skrin
 const muridSemasa = Murid.semasa();
 if (!muridSemasa) {

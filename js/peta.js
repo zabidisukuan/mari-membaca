@@ -35,6 +35,16 @@ let deferredInstallPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
+  if (document.getElementById('petaContainer')) {
+    skrinPeta();
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  if (document.getElementById('petaContainer')) {
+    skrinPeta();
+  }
 });
 
 // ---------- Skrin Daftar ----------
@@ -166,6 +176,10 @@ function skrinPeta() {
     if (buka) indeksTerakhir = idx;
   });
 
+  // Semak jika sudah dipasang sebagai standalone
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  const tunjukPasang = deferredInstallPrompt && !isStandalone;
+
   // SVG Path untuk laluan berliku
   const pathD = KOORDINAT_PETA.reduce((acc, pt, idx) => {
     return acc + (idx === 0 ? `M ${pt.x} ${pt.y}` : ` L ${pt.x} ${pt.y}`);
@@ -186,7 +200,7 @@ function skrinPeta() {
         <div class="bar-butang-kanan">
           <button id="btnBeg" class="kecil btn-peta">🎒 Beg</button>
           <button id="tukarMurid" class="kecil btn-peta">👤 Tukar</button>
-          ${deferredInstallPrompt ? '<button id="btnPasang" class="kecil btn-peta highlight">📲 Pasang</button>' : ''}
+          ${tunjukPasang ? '<button id="btnPasang" class="kecil btn-peta highlight">📲 Pasang aplikasi</button>' : ''}
         </div>
       </header>
 
