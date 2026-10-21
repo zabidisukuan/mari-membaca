@@ -1,0 +1,7 @@
+# Gambar asal Codex (besar); game guna assets/img/*.jpg
+assets/img-src/
+# Bahan asal (hak cipta TcerNabila Collection), jangan diterbitkan
+*.pptx
+.playwright-mcp/
+.claude/
+apps-script/.clasp.json
