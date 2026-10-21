@@ -104,6 +104,24 @@ const Murid = {
     if (!k[id] || peratus > k[id]) k[id] = peratus;
     Simpan.set('mm_kemajuan_' + Murid.kunci(m), k);
   },
+  adaBarang(id) {
+    const m = Murid.semasa();
+    if (!m) return false;
+    const kM = Murid.kunci(m);
+    const numStr = String(id).replace(/[^0-9]/g, '');
+    const num = parseInt(numStr, 10);
+    const tId = 'K' + (isNaN(num) ? String(id).toUpperCase().replace(/^K/, '') : num);
+    return Simpan.get('mm2_beg_' + kM + '_' + tId, false) || Simpan.get('mm2_game_star_' + kM + '_' + tId, 0) >= 1;
+  },
+  beriBarang(id) {
+    const m = Murid.semasa();
+    if (!m) return;
+    const kM = Murid.kunci(m);
+    const numStr = String(id).replace(/[^0-9]/g, '');
+    const num = parseInt(numStr, 10);
+    const tId = 'K' + (isNaN(num) ? String(id).toUpperCase().replace(/^K/, '') : num);
+    Simpan.set('mm2_beg_' + kM + '_' + tId, true);
+  },
 };
 
 const bintang = (p) => (p >= 90 ? 3 : p >= 70 ? 2 : p >= 50 ? 1 : 0);
