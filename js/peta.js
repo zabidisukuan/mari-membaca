@@ -202,7 +202,9 @@ function skrinPeta() {
         </svg>
 
         <div id="avatarPeta" class="avatar-peta" style="left: ${posAvatar.x}%; top: ${posAvatar.y}%;">
-          ${imgV2(watak, watakEmoji, 'avatar-img', watakNama)}
+          <div class="avatar-badge">
+            ${imgV2(watak, watakEmoji, 'avatar-img', watakNama)}
+          </div>
         </div>
 
         ${DATA.tahap.map((t, i) => {
@@ -220,7 +222,10 @@ function skrinPeta() {
               <div class="lokasi-pin">
                 ${buka ? imgV2(info.img || 'lok_k01', info.emoji || '📍', 'lokasi-img') : '🔒'}
               </div>
-              <span class="lokasi-tag">${t.id}</span>
+              <div class="lokasi-label-box">
+                <span class="lokasi-tag">${t.id}</span>
+                <span class="lokasi-nama">${esc(info.nama || t.tajuk)}</span>
+              </div>
               ${buka && b > 0 ? `<span class="lokasi-bintang">${'★'.repeat(b)}</span>` : ''}
             </button>
           `;
