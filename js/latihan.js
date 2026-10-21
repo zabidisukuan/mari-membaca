@@ -1,5 +1,4 @@
-// Bina soalan bagi setiap tahap dan papar setiap jenis soalan.
-// Setiap soalan: { type, ... }. render(soalan, el, selesai) memanggil selesai(betulKaliPertama).
+// Modul latihan: pembina soalan, renderer soalan, dan pengurusan aliran Latihan (mainLatihan).
 
 const U = {
   shuffle(a) {
@@ -11,8 +10,8 @@ const U = {
     return a;
   },
   pick(a, n) { return U.shuffle(a).slice(0, n); },
-  kata: (w) => w.replace(/-/g, ''),
-  suku: (w) => w.split('-'),
+  kata: (w) => String(w || '').replace(/-/g, ''),
+  suku: (w) => String(w || '').split('-'),
   el(tag, cls, html) {
     const e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -290,4 +289,90 @@ function render(q, el, selesai) {
     }
   }
   el.appendChild(kad);
+}
+
+// ---------- Main Latihan v2 ----------
+
+function mainLatihan(t) {
+  const soalan = binaSoalan(t);
+  let i = 0, betul = 0;
+  skrin(`
+    <header class="atas main">
+      <button id="keluar" class="kecil" aria-label="Keluar">✕</button>
+      <div class="kemajuan"><div id="bar"></div></div>
+      <span class="label">${t.id}</span>
+    </header>
+    <main id="pentas"></main>`);
+
+  document.getElementById('keluar').onclick = () => skrinPeta();
+  const pentas = document.getElementById('pentas');
+  const bar = document.getElementById('bar');
+
+  function seterusnya() {
+    bar.style.width = `${(i / soalan.length) * 100}%`;
+    if (i >= soalan.length) return tamat();
+    const q = soalan[i];
+    window.soalanSemasa = q; // Untuk ujian automatik & pemeriksaan
+    render(q, pentas, (ok) => {
+      if (ok) betul++;
+      Bunyi.betul();
+      Suara.main(q.suara);
+      const kad = pentas.querySelector('.kad-soalan');
+      if (kad) kad.classList.add('berjaya');
+      i++;
+      setTimeout(seterusnya, q.type === 'susun' || q.type === 'faham' ? 1800 : 1200);
+    });
+  }
+
+  async function tamat() {
+    const peratus = Math.round((betul / soalan.length) * 100);
+    Murid.simpanKemajuan(t.id, peratus);
+    const b = bintang(peratus);
+    if (b >= 1) Bunyi.menang();
+
+    const lulus = peratus >= LULUS || modGuru;
+    const maskotImg = lulus ? 'kancil_gembira' : 'kancil_fikir';
+    const maskotEmoji = lulus ? '🥳' : '🤔';
+    const tajukMesej = b >= 2 ? 'Syabas!' : b === 1 ? 'Bagus!' : 'Cuba lagi!';
+
+    skrin(`
+      <div class="keputusan">
+        <div class="maskot-keputusan">
+          ${imgV2(maskotImg, maskotEmoji, 'img-maskot')}
+        </div>
+        <h2>${tajukMesej}</h2>
+        <div class="bintang-besar">${'★'.repeat(b)}${'☆'.repeat(3 - b)}</div>
+        <p class="markah">${betul} / ${soalan.length} betul &nbsp;·&nbsp; <b>${peratus}%</b></p>
+        <p class="status" id="status">Menghantar markah…</p>
+        <div class="butang-butang">
+          <button id="ulang" class="besar kedua">↻ Ulang</button>
+          ${lulus ? '<button id="btnGame" class="besar">🎮 Main Game</button>' : ''}
+          <button id="peta" class="besar kedua">🗺️ Peta</button>
+        </div>
+      </div>`);
+
+    document.getElementById('ulang').onclick = () => mainLatihan(t);
+    document.getElementById('peta').onclick = () => skrinPeta();
+
+    const btnGame = document.getElementById('btnGame');
+    if (btnGame) {
+      btnGame.onclick = () => {
+        if (typeof mainGame === 'function') {
+          mainGame(t);
+        } else if (typeof GAME !== 'undefined' && GAME[t.id]) {
+          GAME[t.id].mula();
+        } else if (typeof menuLokasi === 'function') {
+          menuLokasi(t);
+        } else {
+          alert('Game ' + t.id + ' akan datang!');
+        }
+      };
+    }
+
+    const ok = await Markah.hantar(t.id, peratus);
+    const st = document.getElementById('status');
+    if (st) st.textContent = ok ? '✔ Markah telah dihantar kepada guru.' : 'Markah disimpan. Akan dihantar apabila ada internet.';
+  }
+
+  seterusnya();
 }
