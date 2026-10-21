@@ -3339,3 +3339,7 @@ form .besar {
 .landasan-wrapper .slot-gerabak-row { flex: 1; min-width: 0; gap: 4px; }
 .landasan-wrapper .slot-gerabak { flex: 1 1 0; min-width: 0; width: auto; height: clamp(50px, 14vw, 85px); }
 .landasan-wrapper .slot-gerabak .gerabak-label { font-size: clamp(16px, 4.6vw, 26px); padding: 2px 8px; }
+
+/* Butang Pasang aplikasi turun ke baris sendiri supaya bar atas peta tidak melebihi lebar telefon */
+.bar-butang-kanan { flex-wrap: wrap; justify-content: flex-end; }
+#btnPasang { flex-basis: 100%; }
