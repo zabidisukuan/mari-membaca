@@ -50,7 +50,7 @@ GAME['K1'] = {
       const pengacauPilihan = U.shuffle(pengacauBoleh).slice(0, 3);
 
       const pilihanHuruf = U.shuffle([target, ...pengacauPilihan]);
-      const xPositions = [12, 32, 52, 72, 88];
+      const xPositions = [2, 26, 50, 74];
       const shuffledX = U.shuffle(xPositions);
 
       pilihanHuruf.forEach((h, idx) => {
@@ -66,8 +66,9 @@ GAME['K1'] = {
         `;
 
         const posX = shuffledX[idx % shuffledX.length];
-        const startY = 100 + idx * 15; // Jarakkan sikit kedudukan awal Y
-        const speed = 0.18 + Math.random() * 0.12; // Kelajuan terapung % per tick
+        // Semua belon kelihatan sejak awal, ketinggian berbeza supaya tidak sebaris
+        const startY = 12 + ((idx * 19 + Math.floor(Math.random() * 8)) % 62);
+        const speed = 0.1 + Math.random() * 0.04; // Kelajuan terapung % per tick (perlahan, mesra murid)
 
         belon.style.left = `${posX}%`;
         belon.style.top = `${startY}%`;
@@ -111,8 +112,8 @@ GAME['K1'] = {
         if (soalanAktif) {
           belonList.forEach((b) => {
             b.y -= b.speed * (dt / 16);
-            if (b.y < -20) {
-              b.y = 105; // Kitar semula ke bawah
+            if (b.y < -25) {
+              b.y = 92; // Kitar semula: muncul semula dari bahagian bawah kawasan
             }
             b.el.style.top = `${b.y}%`;
           });

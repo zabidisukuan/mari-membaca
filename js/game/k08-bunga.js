@@ -79,7 +79,8 @@ GAME['K8'] = {
 
       const kelopakButtons = [];
 
-      const radius = 105; // Jarak dari pusat bunga dalam px
+      const rW = rodaBunga.clientWidth || 280;
+      const radius = Math.min(108, Math.floor((rW / 2) - 40)); // Jarak dinamik dari pusat bunga
       const total = semuaKelopakSuku.length;
 
       semuaKelopakSuku.forEach((suku, idx) => {

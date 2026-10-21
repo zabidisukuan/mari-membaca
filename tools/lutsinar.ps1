@@ -44,7 +44,20 @@ public static class Lutsinar {
     }
     Marshal.Copy(px, 0, d.Scan0, n);
     bmp.UnlockBits(d);
-    return bmp;
+    // Potong ruang lutsinar di sekeliling objek (dengan sedikit jidar) supaya sprite memenuhi kotaknya
+    int x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (int i = 0; i < n; i++) {
+      if (((px[i] >> 24) & 255) < 16) continue;
+      int x = i % w, y = i / w;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    if (x1 < 0) return bmp;
+    int jidar = Math.Max(2, Math.Max(w, h) / 60);
+    x0 = Math.Max(0, x0 - jidar); y0 = Math.Max(0, y0 - jidar);
+    x1 = Math.Min(w - 1, x1 + jidar); y1 = Math.Min(h - 1, y1 + jidar);
+    var potong = bmp.Clone(new Rectangle(x0, y0, x1 - x0 + 1, y1 - y0 + 1), PixelFormat.Format32bppArgb);
+    bmp.Dispose();
+    return potong;
   }
 }
 "@

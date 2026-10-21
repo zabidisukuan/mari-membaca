@@ -1783,6 +1783,31 @@ form .besar {
   object-fit: contain;
 }
 
+/* ---------- Shared Game Helpers & Card Constraints (TUGASAN 7) ---------- */
+.game-gambar-umum {
+  max-height: clamp(80px, 20vh, 130px);
+  width: auto;
+  object-fit: contain;
+}
+
+/* White Pill Label Base Class */
+.sprite-pill-label {
+  position: relative;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 2px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(22px, 5.5vw, 28px);
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 /* K1: Belon */
 .belon-game-container {
   display: flex;
@@ -1795,10 +1820,11 @@ form .besar {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
   border-radius: 18px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .sasaran-box {
@@ -1806,28 +1832,30 @@ form .besar {
   align-items: center;
   gap: 8px;
   background: var(--utama);
-  padding: 4px 16px;
+  padding: 4px 18px;
   border-radius: 999px;
 }
 
 .huruf-sasaran {
-  font-size: 2rem;
+  font-size: clamp(2.2rem, 7vw, 2.8rem);
   font-weight: 800;
   color: #78350f;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
   text-transform: lowercase;
 }
 
 .btn-dengar-mini {
   background: transparent;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   padding: 0;
+  cursor: pointer;
 }
 
 .belon-pentas {
   position: relative;
   flex: 1;
-  min-height: 380px;
+  min-height: 360px;
   overflow: hidden;
   border-radius: 18px;
 }
@@ -1837,8 +1865,8 @@ form .besar {
   background: transparent;
   border: none;
   padding: 0;
-  width: 70px;
-  height: 95px;
+  width: clamp(88px, 22vw, 110px);
+  height: clamp(110px, 28vw, 138px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1850,6 +1878,7 @@ form .besar {
   width: 100%;
   height: 100%;
   position: absolute;
+  inset: 0;
 }
 
 .belon-img {
@@ -1859,13 +1888,17 @@ form .besar {
 }
 
 .belon-label {
-  position: relative;
-  z-index: 2;
-  font-size: 2rem;
+  position: absolute;
+  z-index: 5;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(40px, 10vw, 52px);
   font-weight: 800;
-  color: #1e293b;
-  text-shadow: 1px 1px 0 #ffffff;
-  margin-top: -15px;
+  color: #0f172a;
+  text-shadow: 2px 2px 0 #ffffff, -2px -2px 0 #ffffff, 2px -2px 0 #ffffff, -2px 2px 0 #ffffff;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  pointer-events: none;
 }
 
 .belon-item.pecah {
@@ -1878,41 +1911,58 @@ form .besar {
   animation: goyangSalah 0.3s;
 }
 
-/* K2: Ulat */
+/* K2: Ulat Lapar */
 .ulat-game-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
+  width: 100%;
+}
+
+.ulat-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .ulat-gambar-box {
   background: #ffffff;
-  padding: 12px;
+  padding: 8px 16px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  max-height: 28vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ulat-gambar-box img {
+  max-height: clamp(80px, 20vh, 130px);
+  width: auto;
+  object-fit: contain;
 }
 
 .ulat-pentas {
   width: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 12px;
   border-radius: 20px;
-  min-height: 110px;
+  min-height: 85px;
   display: flex;
   align-items: center;
   overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .ulat-badan-box {
   display: flex;
   align-items: center;
-  gap: -10px;
 }
 
 .ulat-kepala {
-  width: 60px;
-  height: 60px;
+  width: clamp(64px, 16vw, 75px);
+  height: clamp(64px, 16vw, 75px);
   flex-shrink: 0;
 }
 
@@ -1925,16 +1975,15 @@ form .besar {
 .ulat-segmen-row {
   display: flex;
   align-items: center;
-  gap: -12px;
 }
 
 .ulat-segmen {
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: clamp(56px, 14vw, 68px);
+  height: clamp(56px, 14vw, 68px);
   display: grid;
   place-items: center;
-  margin-left: -12px;
+  margin-left: -10px;
   animation: timbulSegmen 0.3s ease;
 }
 
@@ -1952,8 +2001,13 @@ form .besar {
 
 .segmen-label {
   position: relative;
-  z-index: 2;
-  font-size: 1.1rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 1px 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(18px, 4.5vw, 22px);
   font-weight: 800;
   color: #15803d;
 }
@@ -1962,18 +2016,21 @@ form .besar {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
+  max-width: 440px;
 }
 
 .daun-item {
   position: relative;
   background: transparent;
   border: none;
-  width: 80px;
-  height: 80px;
+  width: clamp(92px, 24vw, 110px);
+  height: clamp(92px, 24vw, 110px);
   display: grid;
   place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .daun-img {
@@ -1985,8 +2042,13 @@ form .besar {
 
 .daun-label {
   position: relative;
-  z-index: 2;
-  font-size: 1.35rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 2px 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(22px, 5.5vw, 28px);
   font-weight: 800;
   color: #065f46;
 }
@@ -1997,28 +2059,47 @@ form .besar {
   transition: opacity 0.3s, transform 0.3s;
 }
 
-/* K3: Kereta Api */
+/* K3: Kereta Api Suku Kata */
 .kereta-game-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
+  width: 100%;
+}
+
+.kereta-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .kereta-gambar-box {
   background: #ffffff;
-  padding: 10px;
+  padding: 8px 16px;
   border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  max-height: 28vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kereta-gambar-box img {
+  max-height: clamp(80px, 20vh, 130px);
+  width: auto;
+  object-fit: contain;
 }
 
 .landasan-wrapper {
   position: relative;
   width: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 12px 16px 20px;
   border-radius: 20px;
-  min-height: 120px;
-  overflow: hidden;
+  min-height: 110px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .kereta-tren {
@@ -2028,12 +2109,12 @@ form .besar {
 }
 
 .kereta-tren.kereta-jalan {
-  transform: translateX(120%);
+  transform: translateX(130%);
 }
 
 .kepala-kereta-box {
-  width: 75px;
-  height: 60px;
+  width: clamp(105px, 26vw, 130px);
+  height: clamp(70px, 18vw, 85px);
   flex-shrink: 0;
 }
 
@@ -2046,18 +2127,21 @@ form .besar {
 .slot-gerabak-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .slot-gerabak {
   position: relative;
-  width: 60px;
-  height: 50px;
+  width: clamp(105px, 26vw, 130px);
+  height: clamp(70px, 18vw, 85px);
   display: grid;
   place-items: center;
   border: 2px dashed #94a3b8;
-  border-radius: 12px;
+  border-radius: 16px;
   background: rgba(241, 245, 249, 0.8);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #94a3b8;
 }
 
 .slot-gerabak.diisi {
@@ -2074,8 +2158,13 @@ form .besar {
 
 .gerabak-label {
   position: relative;
-  z-index: 2;
-  font-size: 1.1rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 2px 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(20px, 5vw, 26px);
   font-weight: 800;
   color: #1e293b;
 }
@@ -2085,25 +2174,29 @@ form .besar {
   bottom: 8px;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 6px;
   background: #64748b;
+  border-radius: 3px;
 }
 
 .gerabak-pilihan-box {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
+  width: 100%;
 }
 
 .gerabak-item {
   position: relative;
   background: transparent;
   border: none;
-  width: 70px;
-  height: 55px;
+  width: clamp(105px, 26vw, 130px);
+  height: clamp(70px, 18vw, 85px);
   display: grid;
   place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .gerabak-item.dipilih {
@@ -2114,7 +2207,7 @@ form .besar {
 .ikan-game-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   height: 100%;
 }
 
@@ -2123,28 +2216,40 @@ form .besar {
   background: #ffffff;
   padding: 8px 16px;
   border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  max-height: 28vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ikan-gambar-box img {
+  max-height: clamp(80px, 20vh, 130px);
+  width: auto;
+  object-fit: contain;
 }
 
 .kolam-pentas {
   position: relative;
   flex: 1;
-  min-height: 360px;
+  min-height: 350px;
   overflow: hidden;
   border-radius: 20px;
-  background: rgba(186, 230, 253, 0.4);
-  border: 2px solid #38bdf8;
+  background: rgba(186, 230, 253, 0.45);
+  border: 3px solid #38bdf8;
 }
 
 .ikan-item {
   position: absolute;
   background: transparent;
   border: none;
-  width: 85px;
-  height: 55px;
+  width: clamp(125px, 30vw, 150px);
+  height: clamp(75px, 18vw, 90px);
   display: grid;
   place-items: center;
   cursor: pointer;
   touch-action: manipulation;
+  padding: 0;
 }
 
 .ikan-item.pusing .ikan-body {
@@ -2153,6 +2258,7 @@ form .besar {
 
 .ikan-body {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
 }
@@ -2165,17 +2271,21 @@ form .besar {
 
 .ikan-label {
   position: relative;
-  z-index: 2;
-  font-size: 1.15rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 2px 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(20px, 5vw, 26px);
   font-weight: 800;
   color: #0369a1;
-  text-shadow: 1px 1px 0 #ffffff;
 }
 
 .jaring-drop {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;
@@ -2183,7 +2293,7 @@ form .besar {
 }
 
 .jaring-drop.aktif {
-  transform: translate(-50%, -50%) scale(1.3);
+  transform: translate(-50%, -50%) scale(1.4);
 }
 
 .jaring-img {
@@ -2200,17 +2310,35 @@ form .besar {
   height: 100%;
 }
 
+.katak-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .katak-gambar-box {
   align-self: center;
   background: #ffffff;
-  padding: 6px 16px;
+  padding: 8px 16px;
   border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  max-height: 28vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.katak-gambar-box img {
+  max-height: clamp(80px, 20vh, 130px);
+  width: auto;
+  object-fit: contain;
 }
 
 .kata-sasaran-teks {
-  font-size: 1.8rem;
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
   font-weight: 800;
   color: #0284c7;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .sungai-pentas {
@@ -2218,7 +2346,7 @@ form .besar {
   flex: 1;
   min-height: 340px;
   background: rgba(56, 189, 248, 0.25);
-  border: 2px solid #0284c7;
+  border: 3px solid #0284c7;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -2227,12 +2355,13 @@ form .besar {
 }
 
 .tebing {
-  padding: 6px 12px;
+  padding: 8px 12px;
   background: #86efac;
   font-weight: 800;
   color: #166534;
   text-align: center;
   z-index: 2;
+  font-size: 1.1rem;
 }
 
 .tebing-atas {
@@ -2241,7 +2370,7 @@ form .besar {
 
 .tebing-bawah {
   border-top: 2px solid #22c55e;
-  min-height: 48px;
+  min-height: 52px;
   position: relative;
 }
 
@@ -2265,15 +2394,17 @@ form .besar {
   position: relative;
   background: transparent;
   border: none;
-  width: 80px;
-  height: 50px;
+  width: clamp(96px, 25vw, 120px);
+  height: clamp(60px, 16vw, 75px);
   display: grid;
   place-items: center;
   cursor: pointer;
   touch-action: manipulation;
+  padding: 0;
 }
 
 .batu-img {
+  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -2281,11 +2412,15 @@ form .besar {
 
 .batu-label {
   position: relative;
-  z-index: 2;
-  font-size: 1.2rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 2px 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  font-size: clamp(20px, 5vw, 26px);
   font-weight: 800;
   color: #1e293b;
-  text-shadow: 1px 1px 0 #ffffff;
 }
 
 .batu-item.dipijak {
@@ -2295,8 +2430,8 @@ form .besar {
 
 .katak-posisi {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: clamp(54px, 14vw, 65px);
+  height: clamp(54px, 14vw, 65px);
   transform: translate(-50%, 0);
   transition: left 0.35s ease, bottom 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 10;
@@ -2322,27 +2457,34 @@ form .besar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 8px 0;
 }
 
 .barang-drop-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
+  min-height: 140px;
 }
 
 .barang-card {
   background: #ffffff;
   border: 3px solid #fbbf24;
   border-radius: 24px;
-  padding: 14px 20px;
+  padding: 12px 18px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   transition: transform 0.4s ease, opacity 0.4s ease;
+  max-height: 28vh;
+}
+
+.barang-card img {
+  max-height: clamp(75px, 18vh, 120px);
+  width: auto;
+  object-fit: contain;
 }
 
 .barang-card.jatuh-masuk {
@@ -2351,15 +2493,16 @@ form .besar {
 }
 
 .barang-label {
-  font-size: 1.75rem;
+  font-size: clamp(1.6rem, 5.5vw, 2.2rem);
   font-weight: 800;
   color: #1e293b;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .senarai-bakul-row {
   display: flex;
-  justify-content: space-around;
-  gap: 12px;
+  justify-content: center;
+  gap: 16px;
   padding: 0 6px;
 }
 
@@ -2367,21 +2510,21 @@ form .besar {
   background: #ffffff;
   border: 3px solid #f59e0b;
   border-radius: 20px;
-  padding: 10px 8px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   cursor: pointer;
   touch-action: manipulation;
   flex: 1;
-  max-width: 155px;
+  max-width: 160px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .bakul-img-box {
-  width: 65px;
-  height: 55px;
+  width: clamp(80px, 20vw, 100px);
+  height: clamp(65px, 16vw, 80px);
 }
 
 .bakul-img {
@@ -2391,8 +2534,13 @@ form .besar {
 }
 
 .bakul-label {
-  font-size: 1.15rem;
+  font-size: clamp(1.1rem, 3.8vw, 1.3rem);
+  font-weight: 800;
   color: #78350f;
+  background: rgba(254, 243, 199, 0.9);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 /* K7: Bot ke Pulau */
@@ -2400,27 +2548,66 @@ form .besar {
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: 10px;
+}
+
+.bot-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.bot-gambar-box {
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  max-height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bot-gambar-box img {
+  max-height: clamp(70px, 18vh, 110px);
+  width: auto;
+  object-fit: contain;
+}
+
+.bot-teks-label {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 800;
+  color: #0f172a;
+  background: #ffffff;
+  padding: 4px 16px;
+  border-radius: 18px;
+  border: 3px solid #38bdf8;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .laut-pentas {
   position: relative;
   flex: 1;
-  min-height: 350px;
+  min-height: 320px;
   background: rgba(56, 189, 248, 0.2);
-  border: 2px solid #0284c7;
+  border: 3px solid #0284c7;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 10px;
+  padding: 12px 6px 16px;
 }
 
 .senarai-pulau-row {
   display: flex;
   justify-content: space-around;
-  padding: 0 6px;
+  padding: 0 4px;
   z-index: 2;
+  width: 100%;
 }
 
 .pulau-item {
@@ -2431,11 +2618,13 @@ form .besar {
   align-items: center;
   cursor: pointer;
   touch-action: manipulation;
+  width: clamp(100px, 26vw, 125px);
+  padding: 0;
 }
 
 .pulau-img-box {
-  width: 80px;
-  height: 60px;
+  width: 100%;
+  height: clamp(65px, 16vw, 80px);
 }
 
 .pulau-img {
@@ -2445,64 +2634,43 @@ form .besar {
 }
 
 .pulau-label {
-  font-size: 1.3rem;
+  position: relative;
+  z-index: 5;
+  font-size: clamp(22px, 6vw, 28px);
   font-weight: 800;
   color: #0369a1;
-  background: #ffffff;
-  padding: 2px 10px;
-  border-radius: 12px;
-  margin-top: -6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 14px;
+  border-radius: 999px;
+  margin-top: -8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .bot-wrapper {
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   left: 50%;
   transform: translate(-50%, 0);
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 5;
 }
 
-.bot-kandungan {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.bot-gambar-box {
-  background: #ffffff;
-  padding: 4px 8px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.bot-teks-label {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #0f172a;
-  background: #ffffff;
-  padding: 4px 12px;
-  border-radius: 16px;
-  border: 2px solid #38bdf8;
-}
-
-.diftong-serlah {
-  color: #e11d48;
-  text-decoration: underline;
-  font-weight: 900;
-}
-
 .bot-sprite-box {
-  width: 85px;
-  height: 60px;
+  width: clamp(100px, 26vw, 125px);
+  height: clamp(70px, 18vw, 85px);
 }
 
 .bot-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.diftong-serlah {
+  color: #e11d48;
+  text-decoration: underline;
+  font-weight: 900;
 }
 
 /* K8: Roda Bunga */
@@ -2522,8 +2690,19 @@ form .besar {
 
 .bunga-gambar-box {
   background: #ffffff;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  max-height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bunga-gambar-box img {
+  max-height: clamp(70px, 18vh, 110px);
+  width: auto;
+  object-fit: contain;
 }
 
 .slot-bunga-row {
@@ -2533,16 +2712,17 @@ form .besar {
 }
 
 .slot-bunga {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: clamp(56px, 14vw, 68px);
+  height: clamp(56px, 14vw, 68px);
+  border-radius: 16px;
   border: 2px dashed #cbd5e1;
   background: #ffffff;
   display: grid;
   place-items: center;
-  font-size: 1.35rem;
+  font-size: clamp(1.4rem, 4.5vw, 1.8rem);
   font-weight: 800;
   color: #334155;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .slot-bunga.diisi {
@@ -2562,8 +2742,8 @@ form .besar {
 
 .roda-bunga {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: clamp(270px, 75vw, 320px);
+  height: clamp(270px, 75vw, 320px);
   display: grid;
   place-items: center;
   transition: transform 0.8s ease-in-out;
@@ -2574,8 +2754,8 @@ form .besar {
 }
 
 .pusat-bunga {
-  width: 70px;
-  height: 70px;
+  width: clamp(75px, 20vw, 90px);
+  height: clamp(75px, 20vw, 90px);
   border-radius: 50%;
   background: #fde047;
   border: 4px solid #eab308;
@@ -2586,7 +2766,7 @@ form .besar {
 }
 
 .pusat-icon {
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 
 .kelopak-ring {
@@ -2597,24 +2777,25 @@ form .besar {
 
 .kelopak-item {
   position: absolute;
-  top: calc(50% - 27px);
-  left: calc(50% - 27px);
-  width: 54px;
-  height: 54px;
+  top: calc(50% - 38px);
+  left: calc(50% - 38px);
+  width: clamp(72px, 18vw, 84px);
+  height: clamp(72px, 18vw, 84px);
   border-radius: 50%;
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 2px solid rgba(0,0,0,0.12);
   display: grid;
   place-items: center;
   cursor: pointer;
   touch-action: manipulation;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .kelopak-label {
-  font-size: 1.2rem;
+  font-size: clamp(22px, 5.5vw, 28px);
   font-weight: 800;
   color: #1e293b;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .kelopak-warna-1 { background: #fef08a; }
@@ -2633,17 +2814,24 @@ form .besar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
 }
 
 .kunci-gambar-box {
-  min-height: 80px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 25vh;
+}
+
+.kunci-gambar-box img {
+  max-height: clamp(70px, 18vh, 110px);
+  width: auto;
+  object-fit: contain;
 }
 
 .pintu-pentas {
@@ -2655,17 +2843,17 @@ form .besar {
 
 .pintu-card {
   position: relative;
-  width: 180px;
-  height: 200px;
-  background: rgba(255, 255, 255, 0.85);
+  width: clamp(160px, 42vw, 200px);
+  height: clamp(170px, 45vw, 210px);
+  background: rgba(255, 255, 255, 0.88);
   border: 4px solid #b45309;
   border-radius: 20px 20px 8px 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 10px;
   transition: transform 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
 }
 
@@ -2676,8 +2864,8 @@ form .besar {
 }
 
 .pintu-sprite-box {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2690,15 +2878,16 @@ form .besar {
 }
 
 .pintu-perkataan {
-  margin-top: 10px;
-  font-size: 1.6rem;
+  margin-top: 8px;
+  font-size: clamp(1.4rem, 4.8vw, 1.8rem);
   font-weight: 800;
   color: #1e293b;
   background: #ffffff;
-  padding: 6px 16px;
+  padding: 4px 14px;
   border-radius: 12px;
   border: 2px solid #cbd5e1;
   box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .pintu-perkataan .kata-penuh {
@@ -2708,7 +2897,7 @@ form .besar {
 .kunci-row {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   flex-wrap: wrap;
 }
@@ -2720,9 +2909,10 @@ form .besar {
   justify-content: center;
   background: #fef3c7;
   border: 3px solid #f59e0b;
-  border-radius: 16px;
-  padding: 10px 16px;
-  min-width: 90px;
+  border-radius: 18px;
+  padding: 8px 12px;
+  min-width: clamp(90px, 24vw, 110px);
+  min-height: clamp(90px, 24vw, 110px);
   cursor: pointer;
   touch-action: manipulation;
   box-shadow: 0 5px 0 #d97706;
@@ -2740,8 +2930,8 @@ form .besar {
 }
 
 .kunci-sprite-wrap {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2754,10 +2944,14 @@ form .besar {
 }
 
 .kunci-label {
-  font-size: 1.3rem;
+  font-size: clamp(22px, 5.5vw, 28px);
   font-weight: 800;
   color: #78350f;
-  margin-top: 4px;
+  margin-top: 2px;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 10px;
+  border-radius: 999px;
 }
 
 .kunci-btn.kunci-masuk {
@@ -2775,7 +2969,7 @@ form .besar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
@@ -2786,7 +2980,7 @@ form .besar {
   align-items: center;
   gap: 10px;
   background: rgba(255, 255, 255, 0.9);
-  padding: 8px 18px;
+  padding: 6px 16px;
   border-radius: 20px;
   border: 2px solid #cbd5e1;
 }
@@ -2798,13 +2992,14 @@ form .besar {
 }
 
 .kata-dasar-card {
-  font-size: 1.5rem;
+  font-size: clamp(1.4rem, 4.8vw, 1.8rem);
   font-weight: 800;
   color: #2563eb;
   background: #dbeafe;
   padding: 4px 14px;
   border-radius: 12px;
   border: 2px solid #60a5fa;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .mesin-pentas {
@@ -2815,15 +3010,15 @@ form .besar {
 
 .mesin-card {
   position: relative;
-  width: 260px;
+  width: clamp(250px, 70vw, 300px);
   background: rgba(255, 255, 255, 0.9);
   border: 4px solid #475569;
   border-radius: 24px;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   transition: transform 0.2s ease;
 }
 
@@ -2840,12 +3035,12 @@ form .besar {
 }
 
 .mesin-sprite-wrap {
-  width: 90px;
-  height: 90px;
+  width: 85px;
+  height: 85px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .mesin-img {
@@ -2866,10 +3061,13 @@ form .besar {
   background: #3b82f6;
   color: #ffffff;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 10px 16px;
-  font-size: 1.2rem;
+  min-width: clamp(88px, 24vw, 110px);
+  min-height: 48px;
+  font-size: clamp(22px, 5.5vw, 28px);
   font-weight: 800;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
   cursor: pointer;
   touch-action: manipulation;
   box-shadow: 0 4px 0 #1d4ed8;
@@ -2900,17 +3098,18 @@ form .besar {
 }
 
 .hasil-card {
-  margin-top: 10px;
-  font-size: 1.6rem;
+  margin-top: 8px;
+  font-size: clamp(1.4rem, 4.8vw, 1.8rem);
   font-weight: 800;
   color: #1e293b;
   background: #ffffff;
   border: 3px solid #cbd5e1;
-  padding: 8px 24px;
+  padding: 6px 20px;
   border-radius: 16px;
   min-width: 140px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .hasil-card.hasil-keluar {
@@ -2930,7 +3129,7 @@ form .besar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
@@ -2942,15 +3141,16 @@ form .besar {
   gap: 10px;
   background: #fef3c7;
   border: 3px solid #f59e0b;
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: 18px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  min-height: 52px;
 }
 
 .kanta-header-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2963,29 +3163,37 @@ form .besar {
 }
 
 .teks-soalan-detektif {
-  font-size: 1.25rem;
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
   font-weight: 800;
   color: #78350f;
   margin: 0;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
 }
 
 .petikan-detektif-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: rgba(255, 255, 255, 0.92);
   border: 3px solid #cbd5e1;
   border-radius: 20px;
-  padding: 14px;
+  padding: 12px;
   width: 100%;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 .petikan-gambar-box {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-height: 25vh;
+}
+
+.petikan-gambar-box img {
+  max-height: clamp(70px, 18vh, 110px);
+  width: auto;
+  object-fit: contain;
 }
 
 .baris-teks-list {
@@ -2998,6 +3206,22 @@ form .besar {
 .baris-btn {
   display: flex;
   align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 10px 14px;
+  min-height: 52px;
+  font-size: clamp(20px, 5vw, 25px);
+  font-weight: 800;
+  color: #1e293b;
+  font-family: var(--fon-bacaan, 'Andika', sans-serif);
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  width: 100%;
+}
   gap: 10px;
   background: #f8fafc;
   border: 2px solid #e2e8f0;
@@ -3096,3 +3320,22 @@ form .besar {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Gambar soalan di dalam game: muat dalam kotak game (bukan saiz kad Latihan), tiada bingkai berganda */
+[class$="-game-container"] .gambar {
+  width: auto;
+  height: clamp(110px, 22vh, 160px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* K3: kepala + semua slot gerabak muat dalam lebar landasan (tiada skrol mendatar) */
+.landasan-wrapper { overflow-x: hidden; padding-left: 10px; padding-right: 10px; }
+.landasan-wrapper .kereta-tren { width: 100%; gap: 4px; }
+.landasan-wrapper .kepala-kereta-box { width: clamp(64px, 20vw, 120px); height: auto; aspect-ratio: 1.5; }
+.landasan-wrapper .slot-gerabak-row { flex: 1; min-width: 0; gap: 4px; }
+.landasan-wrapper .slot-gerabak { flex: 1 1 0; min-width: 0; width: auto; height: clamp(50px, 14vw, 85px); }
+.landasan-wrapper .slot-gerabak .gerabak-label { font-size: clamp(16px, 4.6vw, 26px); padding: 2px 8px; }

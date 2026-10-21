@@ -55,7 +55,7 @@ GAME['K4'] = {
       const pengacau = [...new Set(dekat.concat(U.shuffle(lain)))].slice(0, 3);
 
       const pilihanKata = U.shuffle([jawapan, ...pengacau]);
-      const yPositions = [15, 38, 62, 82];
+      const yPositions = [8, 30, 52, 74];
       const shuffledY = U.shuffle(yPositions);
 
       pilihanKata.forEach((kata, idx) => {
@@ -72,9 +72,9 @@ GAME['K4'] = {
           <span class="ikan-label">${kata}</span>
         `;
 
-        const startX = dir === 1 ? -25 - idx * 15 : 105 + idx * 15;
+        const startX = 5 + idx * 18; // Kedudukan permulaan di dalam kolam
         const posY = shuffledY[idx % shuffledY.length];
-        const speed = 0.12 + Math.random() * 0.1; // Kelajuan berenang % per tick
+        const speed = 0.11 + Math.random() * 0.04; // Kelajuan berenang perlahan (8-10s merentasi)
 
         btn.style.left = `${startX}%`;
         btn.style.top = `${posY}%`;
@@ -112,28 +112,36 @@ GAME['K4'] = {
           } else {
             GameAsas.salah(btn);
             // Ikan berenang laju sedikit bila disalah ketik
-            state.speed *= 1.5;
+            state.speed *= 1.4;
           }
         };
 
         kolam.appendChild(btn);
       });
 
-      // Gelung pergerakan ikan
+      // Gelung pergerakan ikan (berpatah balik di tepi kolam)
       let lastTime = performance.now();
       const gelungIkan = (now) => {
         const dt = Math.min(50, now - lastTime);
         lastTime = now;
 
         if (soalanAktif) {
+          const kolamW = kolam.clientWidth || 360;
           ikanList.forEach((ik) => {
+            const ikW = ik.el.clientWidth || 130;
+            const maxPct = Math.max(10, ((kolamW - ikW) / kolamW) * 100);
+
             ik.x += ik.dir * ik.speed * (dt / 16);
 
-            // Kitar semula jika terkeluar skrin
-            if (ik.dir === 1 && ik.x > 115) {
-              ik.x = -30;
-            } else if (ik.dir === -1 && ik.x < -35) {
-              ik.x = 110;
+            // Berpatah balik jika sampai ke tepi kolam
+            if (ik.dir === 1 && ik.x >= maxPct) {
+              ik.x = maxPct;
+              ik.dir = -1;
+              ik.el.classList.add('pusing');
+            } else if (ik.dir === -1 && ik.x <= 0) {
+              ik.x = 0;
+              ik.dir = 1;
+              ik.el.classList.remove('pusing');
             }
 
             ik.el.style.left = `${ik.x}%`;

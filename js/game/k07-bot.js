@@ -27,6 +27,11 @@ GAME['K7'] = {
 
     el.innerHTML = `
       <div class="bot-game-container">
+        <div class="bot-header">
+          <div id="botGambarBox" class="bot-gambar-box"></div>
+          <div id="botTeksLabel" class="bot-teks-label"></div>
+        </div>
+
         <div class="laut-pentas" id="lautPentas">
           <div class="senarai-pulau-row">
             <button class="pulau-item" data-diftong="ai" id="pulauAi">
@@ -52,12 +57,8 @@ GAME['K7'] = {
           </div>
 
           <div id="botWrapper" class="bot-wrapper">
-            <div id="botKandungan" class="bot-kandungan">
-              <div id="botGambarBox" class="bot-gambar-box"></div>
-              <div id="botTeksLabel" class="bot-teks-label"></div>
-              <div class="bot-sprite-box">
-                ${imgV2('s_bot', '⛵', 'bot-img sprite-img')}
-              </div>
+            <div class="bot-sprite-box">
+              ${imgV2('s_bot', '⛵', 'bot-img sprite-img')}
             </div>
           </div>
         </div>
