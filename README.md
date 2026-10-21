@@ -28,6 +28,6 @@ Selepas mengubah `Code.gs`: `cd apps-script; clasp push; clasp redeploy <deploym
 | `js/data.js` | Semua perkataan, ayat dan petikan. Edit di sini untuk tambah atau ubah kandungan |
 | `tools/gen-images.mjs` | Jana gambar dengan Codex (ChatGPT) ke `assets/img-src/` |
 | `tools/resize-images.ps1` | Kecilkan gambar ke `assets/img/*.jpg` |
-| `tools/gen-audio.mjs` | Jana suara dengan Gemini TTS ke `assets/audio/` (perlu `GEMINI_API_KEY`) |
+| `tools/gen-audio.mjs` | Jana suara dengan Gemini TTS ke `assets/audio/` (perlu `GEMINI_API_KEY`). Perkataan tunggal dijana 15 sekaligus dan dipotong ikut senyap, kerana had TTS ialah 100 permintaan sehari bagi setiap model. Tetapkan `GEMINI_TTS_MODEL` untuk tukar model |
 
 Kalau gambar tiada, game papar emoji. Kalau fail suara tiada, game guna suara Bahasa Melayu pelayar (jika peranti ada), atau butang 🔊 disembunyikan. Guru boleh ganti mana-mana fail `assets/audio/<nama>.wav` dengan rakaman sendiri.
