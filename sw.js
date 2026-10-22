@@ -1,6 +1,6 @@
 // Service Worker untuk Pulau Membaca v2
 
-const CACHE_NAME = 'pulau-v2-3';
+const CACHE_NAME = 'pulau-v2-4';
 
 const PRECACHE_URLS = [
   './',
@@ -125,8 +125,10 @@ self.addEventListener('fetch', (event) => {
 
   if (isNavigasi || isKod) {
     // Navigasi & kod: network-first dengan sandaran cache (luar talian)
+    // no-cache: sentiasa semak dengan pelayan (elak salinan lama dalam cache HTTP pelayar, max-age 10 minit)
+    const permintaan = isKod ? new Request(event.request, { cache: 'no-cache' }) : event.request;
     event.respondWith(
-      fetch(event.request)
+      fetch(permintaan)
         .then((response) => {
           if (response && response.status === 200) {
             const klon = response.clone();

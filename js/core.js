@@ -41,6 +41,9 @@ const Suara = (() => {
   let audioSemasa = null;
   let sumberSemasa = null;
   let giliran = 0; // bertambah setiap kali suara dihentikan, supaya callback suara lama diabaikan
+  // Naikkan nombor ini setiap kali fail audio diganti, supaya telefon tidak guna salinan lama dari cache
+  const VERSI_AUDIO = 2;
+  const url = (id) => `assets/audio/${id}.wav?v=${VERSI_AUDIO}`;
   const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
 
   const sedia = fetch('assets/audio/index.json').then((r) => (r.ok ? r.json() : [])).then((l) => (fail = new Set(l))).catch(() => {});
@@ -65,7 +68,7 @@ const Suara = (() => {
   const HAD_CACHE = 150;
   function muat(id) {
     if (cache.has(id)) return cache.get(id);
-    const p = fetch(`assets/audio/${id}.wav`)
+    const p = fetch(url(id))
       .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
       .then((ab) => new Promise((ok, gagal) => ctx.decodeAudioData(ab, ok, gagal)))
       .then((buf) => {
@@ -112,7 +115,7 @@ const Suara = (() => {
   }
 
   function mainFail(id, tamat) {
-    const a = new Audio(`assets/audio/${id}.wav`);
+    const a = new Audio(url(id));
     audioSemasa = a;
     a.onended = tamat;
     a.play().catch(tamat);
