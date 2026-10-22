@@ -303,6 +303,8 @@ function render(q, el, selesai) {
 function mainLatihan(t) {
   const soalan = binaSoalan(t);
   let i = 0, betul = 0;
+  let nextTimer = null;
+
   skrin(`
     <header class="atas main">
       <button id="keluar" class="kecil" aria-label="Keluar">✕</button>
@@ -311,7 +313,10 @@ function mainLatihan(t) {
     </header>
     <main id="pentas"></main>`);
 
-  document.getElementById('keluar').onclick = () => skrinPeta();
+  document.getElementById('keluar').onclick = () => {
+    if (nextTimer) clearTimeout(nextTimer);
+    skrinPeta();
+  };
   const pentas = document.getElementById('pentas');
   const bar = document.getElementById('bar');
 
@@ -327,7 +332,8 @@ function mainLatihan(t) {
       const kad = pentas.querySelector('.kad-soalan');
       if (kad) kad.classList.add('berjaya');
       i++;
-      setTimeout(seterusnya, q.type === 'susun' || q.type === 'faham' ? 1800 : 1200);
+      if (nextTimer) clearTimeout(nextTimer);
+      nextTimer = setTimeout(seterusnya, q.type === 'susun' || q.type === 'faham' ? 1800 : 1200);
     });
   }
 

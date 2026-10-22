@@ -1,0 +1,139 @@
+===================================================
+LAPORAN SEMAKAN FAIL AUDIO BERGANDA & DURATION ANOMALY
+===================================================
+
+Jumlah fail .wav diperiksa : 465
+Jumlah fail berpotensi isu : 26
+
+Senarai fail audio berpotensi mempunyai bacaan berganda:
+---------------------------------------------------
+1. huruf_huruf_lain_dipanggil_huruf_konsonan_contohnya_b_c_d_f_.wav
+   Tempoh : 10.13 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+2. huruf_vokal_ada_5_a_e_i_o_u_mari_sebut_bunyi_huruf_vokal_ber.wav
+   Tempoh : 9.69 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+3. mari_cuba_imbuhan_ber_dengan_kata_dasar_main_main_ber_bermai.wav
+   Tempoh : 9.57 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+4. huruf_konsonan_dan_vokal_bercantum_menjadi_suku_kata_contohn.wav
+   Tempoh : 9.53 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+5. perkataan_ini_terbina_daripada_tiga_suku_kata_ke_la_pa_kelap.wav
+   Tempoh : 9.13 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+6. digraf_ialah_dua_konsonan_berturut_turut_yang_menyebut_satu_.wav
+   Tempoh : 8.93 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+7. diftong_ialah_dua_huruf_vokal_yang_dibaca_sebagai_satu_gelun.wav
+   Tempoh : 8.65 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+8. selamat_datang_ke_pulau_diftong_mari_membaca_perkataan_denga.wav
+   Tempoh : 8.53 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+9. kami_belajar_melukis_dan_mewarna_di_sekolah_tadi.wav
+   Tempoh : 8.33 saat
+   Panjang teks slug : 48 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+10. selamat_datang_ke_kolam_ikan_mari_membaca_perkataan_pendek_s.wav
+   Tempoh : 8.25 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+11. adri_sibuk_mengulangkaji_pelajarannya_di_rumah.wav
+   Tempoh : 8.05 saat
+   Panjang teks slug : 46 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+12. awas_jangan_keliru_dengan_huruf_yang_bentuknya_hampir_sama_s.wav
+   Tempoh : 7.81 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+13. suku_kata_kvk_konsonan_vokal_konsonan_mempunyai_tiga_huruf_d.wav
+   Tempoh : 7.41 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+14. dua_suku_kata_bercantum_menjadi_satu_perkataan_bu_ku_buku.wav
+   Tempoh : 7.37 saat
+   Panjang teks slug : 57 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+15. kata_dasar_boleh_ditambah_imbuhan_di_hadapan_seperti_baca_me.wav
+   Tempoh : 7.37 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+16. siti_suka_menari_pada_masa_lapang.wav
+   Tempoh : 7.33 saat
+   Panjang teks slug : 33 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+17. huruf_n_dan_g_apabila_bersama_sama_menghasilkan_satu_bunyi_n.wav
+   Tempoh : 7.25 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+18. aminah_rajin_menyapu_halaman_rumahnya.wav
+   Tempoh : 7.17 saat
+   Panjang teks slug : 37 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+19. konsonan_bergabung_pula_menyebut_dua_bunyi_konsonan_rapat_co.wav
+   Tempoh : 7.13 saat
+   Panjang teks slug : 60 aksara
+   Sebab  : Ayat panjang melebihi 7.0s (potensi bacaan berganda/senggang panjang)
+
+20. berwarna_warni.wav
+   Tempoh : 4.73 saat
+   Panjang teks slug : 14 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+
+21. contoh_lain_perkataan_kvk_jam.wav
+   Tempoh : 4.41 saat
+   Panjang teks slug : 29 aksara
+   Sebab  : Frasa sederhana tetapi tempoh melebihi 4.0s (potensi bacaan berganda)
+
+22. bapa_abu.wav
+   Tempoh : 3.97 saat
+   Panjang teks slug : 8 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+
+23. ya_bas_ini_baru.wav
+   Tempoh : 3.45 saat
+   Panjang teks slug : 15 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+
+24. semasa_hujan.wav
+   Tempoh : 3.29 saat
+   Panjang teks slug : 12 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+
+25. doktor_ramli.wav
+   Tempoh : 2.97 saat
+   Panjang teks slug : 12 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+
+26. rawat_pesakit.wav
+   Tempoh : 2.65 saat
+   Panjang teks slug : 13 aksara
+   Sebab  : Teks pendek tetapi tempoh melebihi 2.5s (potensi bacaan berganda)
+

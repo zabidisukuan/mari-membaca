@@ -109,20 +109,19 @@ GAME['K8'] = {
             targetSlot.className = 'slot-bunga diisi';
             targetSlot.textContent = suku;
 
-            Suara.main(suku);
             langkahIndeks++;
 
             if (langkahIndeks < parts.length) {
+              Suara.main(suku);
               kemaskiniTanda();
             } else {
               soalanAktif = false;
 
               // Putar bunga
               rodaBunga.classList.add('bunga-putar');
-              Suara.main(jawapanPenuh);
               GameAsas.betul(jawapanPenuh, rodaBunga);
 
-              setTimeout(() => {
+              this.timerId = setTimeout(() => {
                 if (GameAsas.pemasa > 0) {
                   buatSoalan();
                 }

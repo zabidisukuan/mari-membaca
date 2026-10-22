@@ -115,10 +115,10 @@ GAME['K5'] = {
               katakEl.style.left = `${posX}px`;
               katakEl.style.bottom = `${posY}px`;
 
-              Suara.main(suku);
               langkahIndeks++;
 
               if (langkahIndeks < parts.length) {
+                Suara.main(suku);
                 kemaskiniTanda();
               } else {
                 soalanAktif = false;
@@ -129,7 +129,7 @@ GAME['K5'] = {
                   GameAsas.betul(jawapanPenuh, katakEl);
                 }, 300);
 
-                setTimeout(() => {
+                this.timerId = setTimeout(() => {
                   if (GameAsas.pemasa > 0) {
                     buatSoalan();
                   }

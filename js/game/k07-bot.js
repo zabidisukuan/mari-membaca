@@ -117,10 +117,9 @@ GAME['K7'] = {
           botWrapper.classList.add('belayar');
           botWrapper.style.transform = `translate(${targetX - rectLaut.width / 2}px, -120px)`;
 
-          Suara.main(jawapanPenuh);
           GameAsas.betul(jawapanPenuh, pulauEl);
 
-          setTimeout(() => {
+          this.timerId = setTimeout(() => {
             if (GameAsas.pemasa > 0) {
               buatSoalan();
             }

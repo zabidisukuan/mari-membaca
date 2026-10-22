@@ -88,16 +88,16 @@ GAME['K2'] = {
             `;
             segmenRow.appendChild(segmen);
 
-            Suara.main(suku);
             langkahIndeks++;
 
             if (langkahIndeks < parts.length) {
+              Suara.main(suku);
               kemaskiniTanda();
             } else {
               soalanAktif = false;
               GameAsas.betul(jawapanPenuh, segmenRow);
 
-              setTimeout(() => {
+              this.timerId = setTimeout(() => {
                 if (GameAsas.pemasa > 0) {
                   buatSoalan();
                 }

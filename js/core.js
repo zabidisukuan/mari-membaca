@@ -37,6 +37,8 @@ const Bunyi = (() => {
 const Suara = (() => {
   let fail = new Set();
   let suaraMs = null;
+  let audioSemasa = null;
+  let giliran = 0; // bertambah setiap kali suara dihentikan, supaya callback suara lama diabaikan
   const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
 
   fetch('assets/audio/index.json').then((r) => (r.ok ? r.json() : [])).then((l) => (fail = new Set(l))).catch(() => {});
@@ -48,16 +50,37 @@ const Suara = (() => {
 
   const ada = (teks) => fail.has(slug(teks)) || !!suaraMs;
 
-  function main(teks) {
+  function henti() {
+    giliran++;
+    if (audioSemasa) {
+      audioSemasa.pause();
+      audioSemasa.currentTime = 0;
+      audioSemasa = null;
+    }
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+    }
+  }
+
+  // selepas: dipanggil apabila suara tamat (tidak dipanggil jika suara dihentikan oleh suara lain)
+  function main(teks, selepas) {
     if (!teks) return;
+    henti();
+    const g = giliran;
+    const tamat = () => { if (selepas && g === giliran) selepas(); };
     const id = slug(teks);
     if (fail.has(id)) {
-      new Audio(`assets/audio/${id}.wav`).play().catch(() => {});
+      const a = new Audio(`assets/audio/${id}.wav`);
+      audioSemasa = a;
+      a.onended = tamat;
+      a.play().catch(tamat);
     } else if (suaraMs) {
-      speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(teks);
       u.voice = suaraMs; u.lang = suaraMs.lang; u.rate = 0.8;
+      u.onend = tamat;
       speechSynthesis.speak(u);
+    } else {
+      tamat();
     }
   }
 
@@ -72,7 +95,7 @@ const Suara = (() => {
     return b;
   }
 
-  return { main, butang, slug };
+  return { main, henti, butang, slug };
 })();
 
 // ---------- Murid & kemajuan ----------
@@ -160,6 +183,7 @@ const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => `&#${c.
 let modGuru = Simpan.get('mm_mod_guru', false);
 
 function skrin(html) {
+  Suara.henti();
   app.innerHTML = html;
   window.scrollTo(0, 0);
 }

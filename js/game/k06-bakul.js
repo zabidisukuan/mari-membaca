@@ -90,10 +90,9 @@ GAME['K6'] = {
           soalanAktif = false;
           barangCard.classList.add('jatuh-masuk');
 
-          Suara.main(jawapanPenuh);
           GameAsas.betul(jawapanPenuh, bakulEl);
 
-          setTimeout(() => {
+          this.timerId = setTimeout(() => {
             if (GameAsas.pemasa > 0) {
               buatSoalan();
             }

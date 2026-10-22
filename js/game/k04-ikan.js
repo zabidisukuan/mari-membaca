@@ -104,7 +104,7 @@ GAME['K4'] = {
 
             GameAsas.betul(jawapan, btn);
 
-            setTimeout(() => {
+            this.timerId = setTimeout(() => {
               if (GameAsas.pemasa > 0) {
                 buatSoalan();
               }

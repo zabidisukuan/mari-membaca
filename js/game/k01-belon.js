@@ -88,7 +88,7 @@ GAME['K1'] = {
             belon.classList.add('pecah');
             GameAsas.betul(target, belon);
 
-            setTimeout(() => {
+            this.timerId = setTimeout(() => {
               if (GameAsas.pemasa > 0) {
                 buatSoalan();
               }

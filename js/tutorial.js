@@ -244,7 +244,14 @@ function renderDemo(demo, el, timernya) {
   el.innerHTML = '';
   if (!demo) return;
 
+  const bersihkanPentasTimer = () => {
+    timernya.forEach((tid) => clearTimeout(tid));
+    timernya.length = 0;
+  };
+
   const kad = U.el('div', 'kad-demo-inner');
+  // Fungsi main demo (jika ada) dipulangkan supaya tutorial boleh memainkannya selepas Kancil habis bercakap
+  let mainkan = null;
 
   switch (demo.jenis) {
     case 'huruf': {
@@ -260,8 +267,10 @@ function renderDemo(demo, el, timernya) {
       });
       const butangUlang = U.el('button', 'kecil btn-ulang-demo', '🔊 Sebut Semua');
       butangUlang.onclick = () => {
+        bersihkanPentasTimer();
         demo.huruf.forEach((h, k) => {
           const t = setTimeout(() => {
+            if (!el.isConnected) return;
             const btns = gred.querySelectorAll('.huruf-kad-demo');
             if (btns[k]) {
               btns[k].classList.add('denyut');
@@ -290,11 +299,13 @@ function renderDemo(demo, el, timernya) {
       wrap.append(kepinganBox, sama, hasilBox);
 
       const mainkanAnimasi = () => {
+        bersihkanPentasTimer();
         wrap.classList.remove('bercantum');
         void wrap.offsetWidth;
         let delay = 0;
         demo.bahagian.forEach((p, idx) => {
           const t = setTimeout(() => {
+            if (!el.isConnected) return;
             const elP = kepinganBox.querySelectorAll('.kepingan-demo')[idx];
             if (elP) {
               elP.classList.add('denyut');
@@ -307,6 +318,7 @@ function renderDemo(demo, el, timernya) {
         });
 
         const tAkhir = setTimeout(() => {
+          if (!el.isConnected) return;
           wrap.classList.add('bercantum');
           hasilBox.classList.add('pop');
           setTimeout(() => hasilBox.classList.remove('pop'), 500);
@@ -315,9 +327,8 @@ function renderDemo(demo, el, timernya) {
         timernya.push(tAkhir);
       };
 
-      wrap.onclick = mainkanAnimasi;
+      wrap.onclick = mainkan = mainkanAnimasi;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk ulang animasi'));
-      mainkanAnimasi();
       break;
     }
 
@@ -339,11 +350,13 @@ function renderDemo(demo, el, timernya) {
       wrap.append(imgBox, sukuRow, kataLengkapBox);
 
       const mainkanAnimasi = () => {
+        bersihkanPentasTimer();
         kataLengkapBox.classList.remove('serlah-kata');
         sukuRow.querySelectorAll('.suku-tag-demo').forEach((x) => x.classList.remove('aktif'));
         let delay = 0;
         sukuKata.forEach((s, idx) => {
           const t = setTimeout(() => {
+            if (!el.isConnected) return;
             const tags = sukuRow.querySelectorAll('.suku-tag-demo');
             if (tags[idx]) tags[idx].classList.add('aktif');
             Suara.main(s);
@@ -353,15 +366,15 @@ function renderDemo(demo, el, timernya) {
         });
 
         const tAkhir = setTimeout(() => {
+          if (!el.isConnected) return;
           kataLengkapBox.classList.add('serlah-kata');
           Suara.main(kataLengkap);
         }, delay);
         timernya.push(tAkhir);
       };
 
-      wrap.onclick = mainkanAnimasi;
+      wrap.onclick = mainkan = mainkanAnimasi;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk ulang'));
-      mainkanAnimasi();
       break;
     }
 
@@ -387,6 +400,7 @@ function renderDemo(demo, el, timernya) {
       wrap.append(imgBox, teksBox);
 
       const mainkanAnimasi = () => {
+        bersihkanPentasTimer();
         const spanB = teksBox.querySelector('.serlah-bunyi');
         if (spanB) {
           spanB.classList.remove('denyut');
@@ -396,9 +410,8 @@ function renderDemo(demo, el, timernya) {
         Suara.main(kataLengkap);
       };
 
-      wrap.onclick = mainkanAnimasi;
+      wrap.onclick = mainkan = mainkanAnimasi;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk dengar'));
-      mainkanAnimasi();
       break;
     }
 
@@ -417,6 +430,7 @@ function renderDemo(demo, el, timernya) {
       wrap.appendChild(formulaBox);
 
       const mainkanAnimasi = () => {
+        bersihkanPentasTimer();
         const h = formulaBox.querySelector('.hasil-tag');
         if (h) {
           h.classList.remove('pop');
@@ -426,9 +440,8 @@ function renderDemo(demo, el, timernya) {
         Suara.main(demo.hasil);
       };
 
-      wrap.onclick = mainkanAnimasi;
+      wrap.onclick = mainkan = mainkanAnimasi;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk dengar'));
-      mainkanAnimasi();
       break;
     }
 
@@ -445,11 +458,13 @@ function renderDemo(demo, el, timernya) {
       wrap.append(imgBox, ayatBox);
 
       const mainkanKaraoke = () => {
+        bersihkanPentasTimer();
         const kataSpans = ayatBox.querySelectorAll('.kata-ayat-demo');
         kataSpans.forEach((x) => x.classList.remove('aktif'));
         let delay = 0;
         perkataanList.forEach((_, idx) => {
           const t = setTimeout(() => {
+            if (!el.isConnected) return;
             kataSpans.forEach((x) => x.classList.remove('aktif'));
             if (kataSpans[idx]) kataSpans[idx].classList.add('aktif');
           }, delay);
@@ -458,15 +473,15 @@ function renderDemo(demo, el, timernya) {
         });
 
         const tAkhir = setTimeout(() => {
+          if (!el.isConnected) return;
           kataSpans.forEach((x) => x.classList.add('aktif'));
           Suara.main(demo.s);
         }, delay);
         timernya.push(tAkhir);
       };
 
-      wrap.onclick = mainkanKaraoke;
+      wrap.onclick = mainkan = mainkanKaraoke;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk ulang bacaan'));
-      mainkanKaraoke();
       break;
     }
 
@@ -503,6 +518,7 @@ function renderDemo(demo, el, timernya) {
       wrap.append(pBox, soalanBox);
 
       const mainkanAnimasi = () => {
+        bersihkanPentasTimer();
         const jEl = pBox.querySelector('.baris-jawapan');
         if (jEl) {
           jEl.classList.add('denyut');
@@ -511,14 +527,14 @@ function renderDemo(demo, el, timernya) {
         Suara.main(jawapan);
       };
 
-      wrap.onclick = mainkanAnimasi;
+      wrap.onclick = mainkan = mainkanAnimasi;
       kad.append(wrap, U.el('p', 'petunjuk-ketik', '👇 Ketik untuk serlahkan jawapan'));
-      mainkanAnimasi();
       break;
     }
   }
 
   el.appendChild(kad);
+  return mainkan;
 }
 
 // Fungsi utama skrin tutorial
@@ -586,10 +602,12 @@ function mainTutorial(t) {
     const container = document.getElementById('tutSuaraContainer');
     if (container) container.appendChild(sBtn);
 
-    Suara.main(item.teks);
-
+    // Demo dimainkan hanya selepas penerangan Kancil tamat supaya suara tidak bertindih
     const pentas = document.getElementById('demoPentas');
-    if (pentas) renderDemo(item.demo, pentas, timernya);
+    const mainkanDemo = pentas ? renderDemo(item.demo, pentas, timernya) : null;
+    Suara.main(item.teks, () => {
+      if (mainkanDemo && pentas.isConnected) mainkanDemo();
+    });
 
     document.getElementById('tutKeluar').onclick = () => {
       bersihkanTimer();

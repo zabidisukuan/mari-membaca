@@ -120,6 +120,7 @@ function mainGame(t) {
     document.getElementById('btnKeluarGame').onclick = () => {
       if (GameAsas.pemasaId) clearInterval(GameAsas.pemasaId);
       if (g.henti) g.henti();
+      Suara.henti();
       menuLokasi(t);
     };
 

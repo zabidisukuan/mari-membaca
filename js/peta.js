@@ -255,6 +255,7 @@ function skrinPeta() {
 
   // Gerakkan avatar dan buka menu lokasi apabila node diketik
   const avatarEl = document.getElementById('avatarPeta');
+  let nodeMenuTimer = null;
   app.querySelectorAll('.lokasi-node').forEach((btn) => {
     btn.onclick = () => {
       const idx = parseInt(btn.dataset.i, 10);
@@ -273,7 +274,8 @@ function skrinPeta() {
         avatarEl.style.top = `${targetPos.y}%`;
       }
 
-      setTimeout(() => {
+      if (nodeMenuTimer) clearTimeout(nodeMenuTimer);
+      nodeMenuTimer = setTimeout(() => {
         menuLokasi(t);
       }, 350);
     };

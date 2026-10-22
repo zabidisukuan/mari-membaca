@@ -99,17 +99,17 @@ GAME['K3'] = {
               <span class="gerabak-label">${suku}</span>
             `;
 
-            Suara.main(suku);
             langkahIndeks++;
 
             if (langkahIndeks < parts.length) {
+              Suara.main(suku);
               kemaskiniTanda();
             } else {
               soalanAktif = false;
               GameAsas.betul(jawapanPenuh, trenBox);
               trenBox.classList.add('kereta-jalan');
 
-              setTimeout(() => {
+              this.timerId = setTimeout(() => {
                 if (GameAsas.pemasa > 0) {
                   buatSoalan();
                 }
