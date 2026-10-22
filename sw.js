@@ -1,6 +1,6 @@
 // Service Worker untuk Pulau Membaca v2
 
-const CACHE_NAME = 'pulau-v2-2';
+const CACHE_NAME = 'pulau-v2-3';
 
 const PRECACHE_URLS = [
   './',

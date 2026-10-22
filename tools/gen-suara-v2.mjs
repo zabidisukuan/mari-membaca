@@ -15,6 +15,17 @@ const VOICE = process.env.GEMINI_VOICE || 'Kore';
 // Mesti sama dengan Suara.slug dalam js/core.js
 const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
 
+// Huruf tunggal dibaca model dengan sebutan Indonesia (be, de, pe, ki). Untuk ayat ini, teks yang dihantar ke TTS
+// dieja ikut sebutan Malaysia; nama fail tetap ikut teks asal (yang dipaparkan).
+const SEBUTAN = {
+  'Huruf vokal ada 5: a, e, i, o, u. Mari sebut bunyi huruf vokal bersama-sama!': 'Huruf vokal ada lima: a, i, ai, o, yu. Mari sebut bunyi huruf vokal bersama-sama!',
+  'Huruf-huruf lain dipanggil huruf konsonan. Contohnya b, c, d, f, g.': 'Huruf-huruf lain dipanggil huruf konsonan. Contohnya bi, si, di, ef, ji.',
+  'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti b, d, p, dan q.': 'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti bi, di, pi, dan kiu.',
+  'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.': 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, bi, a, ba.',
+  'Mari cuba cantumkan huruf lain! k + u = ku.': 'Mari cuba cantumkan huruf lain! Ke, yu, ku.',
+  'Dua suku kata bercantum: di + a = dia.': 'Dua suku kata bercantum: di, a, dia.',
+};
+
 function kumpulTeks() {
   const t = new Set();
   const baca = (f) => fs.readFileSync(path.join(root, f), 'utf8');
@@ -60,8 +71,10 @@ async function jana(teks) {
 const semua = kumpulTeks();
 if (process.argv.includes('--senarai')) { semua.forEach((t) => console.log(t)); process.exit(0); }
 if (!KEY) { console.error('Sila tetapkan GEMINI_API_KEY.'); process.exit(1); }
-const senarai = process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
-const todo = senarai.filter((t) => !fs.existsSync(path.join(OUT, slug(t) + '.wav')));
+// --sebutan: jana semula hanya ayat dalam SEBUTAN (fail lama ditimpa)
+const semula = process.argv.includes('--sebutan');
+const senarai = semula ? semua.filter((t) => SEBUTAN[t]) : process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
+const todo = semula ? senarai : senarai.filter((t) => !fs.existsSync(path.join(OUT, slug(t) + '.wav')));
 console.log(`${todo.length} daripada ${semua.length} ayat perlu dijana (model ${MODEL})`);
 
 let gagal = 0;
@@ -69,7 +82,7 @@ for (const t of todo) {
   let ok = false;
   for (let c = 1; c <= 4 && !ok; c++) {
     try {
-      fs.writeFileSync(path.join(OUT, slug(t) + '.wav'), await jana(t));
+      fs.writeFileSync(path.join(OUT, slug(t) + '.wav'), await jana(SEBUTAN[t] || t));
       console.log('✔', t);
       ok = true;
     } catch (e) {
