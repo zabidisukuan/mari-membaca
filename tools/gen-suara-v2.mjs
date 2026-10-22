@@ -20,11 +20,11 @@ const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-
 // Huruf tunggal, singkatan (KVK) dan simbol (+, =, bu-ku) dibaca model dengan sebutan Indonesia atau janggal.
 // Untuk ayat ini, teks yang dihantar ke TTS dieja ikut sebutan Malaysia; nama fail tetap ikut teks asal (yang dipaparkan).
 const SEBUTAN = {
-  'Huruf vokal ada 5: a, e, i, o, u. Mari sebut bunyi huruf vokal bersama-sama!': 'Huruf vokal ada lima: a, i, ai, o, yu. Mari sebut bunyi huruf vokal bersama-sama!',
+  'Huruf vokal ada 5: a, e, i, o, u. Mari sebut bunyi huruf vokal bersama-sama!': 'Huruf vokal ada lima: ei, i, ai, o, yu. Mari sebut bunyi huruf vokal bersama-sama!',
   'Huruf-huruf lain dipanggil huruf konsonan. Contohnya b, c, d, f, g.': 'Huruf-huruf lain dipanggil huruf konsonan. Contohnya bi, si, di, ef, ji.',
   'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti b, d, p, dan q.': 'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti bi, di, pi, dan kiu.',
-  'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.': 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, bi, a, ba.',
-  'Mari cuba cantumkan huruf lain! k + u = ku.': 'Mari cuba cantumkan huruf lain! Ke, yu, ku.',
+  'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.': 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, bi, ei, ba.',
+  'Mari cuba cantumkan huruf lain! k + u = ku.': 'Mari cuba cantumkan huruf lain! Kei, yu, ku.',
   'Dua suku kata bercantum: di + a = dia.': 'Dua suku kata bercantum: di, a, dia.',
   'Dua suku kata bercantum menjadi satu perkataan: bu + ku = buku.': 'Dua suku kata bercantum menjadi satu perkataan: bu, ku, buku.',
   'Mari sebut dan baca perkataan bu-ku!': 'Mari sebut dan baca perkataan bu, ku!',
@@ -93,8 +93,11 @@ const semua = kumpulTeks();
 if (process.argv.includes('--senarai')) { semua.forEach((t) => console.log(t)); process.exit(0); }
 if (!KEY) { console.error('Sila tetapkan GEMINI_API_KEY.'); process.exit(1); }
 // --sebutan: jana semula hanya ayat dalam SEBUTAN; --semua: jana semula semua ayat (fail lama ditimpa)
-const semula = process.argv.includes('--sebutan') || process.argv.includes('--semua');
-const senarai = process.argv.includes('--sebutan') ? semua.filter((t) => SEBUTAN[t]) : process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
+const semula = process.argv.includes('--sebutan') || process.argv.includes('--semua') || process.argv.includes('--ayat');
+// --ayat <fail.txt>: jana semula hanya ayat yang disenaraikan (satu ayat sebaris, teks asal seperti dipaparkan)
+const iAyat = process.argv.indexOf('--ayat');
+const pilihan = iAyat > 0 ? new Set(fs.readFileSync(process.argv[iAyat + 1], 'utf8').split(/\r?\n/).map((x) => x.trim()).filter(Boolean)) : null;
+const senarai = pilihan ? semua.filter((t) => pilihan.has(t)) : process.argv.includes('--sebutan') ? semua.filter((t) => SEBUTAN[t]) : process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
 // --sejak <masa ISO>: sambung kerja yang terhenti (cth. had kuota harian); langkau fail yang sudah dijana selepas masa itu
 const iSejak = process.argv.indexOf('--sejak');
 const sejak = iSejak > 0 ? new Date(process.argv[iSejak + 1]).getTime() : 0;
