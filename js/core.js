@@ -34,14 +34,16 @@ const Bunyi = (() => {
 })();
 
 // ---------- Suara: fail assets/audio/<id>.wav jika ada, jika tiada guna suara pelayar ms-MY ----------
+// Fail dinyahkod sekali ke dalam Web Audio (cache) dan senyap di awal/akhir dilangkau supaya suara keluar serta-merta.
 const Suara = (() => {
   let fail = new Set();
   let suaraMs = null;
   let audioSemasa = null;
+  let sumberSemasa = null;
   let giliran = 0; // bertambah setiap kali suara dihentikan, supaya callback suara lama diabaikan
   const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
 
-  fetch('assets/audio/index.json').then((r) => (r.ok ? r.json() : [])).then((l) => (fail = new Set(l))).catch(() => {});
+  const sedia = fetch('assets/audio/index.json').then((r) => (r.ok ? r.json() : [])).then((l) => (fail = new Set(l))).catch(() => {});
   function cariSuara() {
     if (!('speechSynthesis' in window)) return;
     suaraMs = speechSynthesis.getVoices().find((v) => /^ms([-_]|$)/i.test(v.lang)) || null;
@@ -50,8 +52,55 @@ const Suara = (() => {
 
   const ada = (teks) => fail.has(slug(teks)) || !!suaraMs;
 
+  // Web Audio: pelayar (terutama iPhone) hanya benarkan bunyi selepas sentuhan pertama
+  const AC = window.AudioContext || window.webkitAudioContext;
+  const ctx = AC ? new AC() : null;
+  if (ctx) {
+    const buka = () => { if (ctx.state === 'suspended') ctx.resume(); };
+    ['pointerdown', 'touchend', 'keydown'].forEach((e) => document.addEventListener(e, buka, { capture: true, passive: true }));
+  }
+
+  // Cache id -> Promise<{ buf, mula, tempoh }>, dihadkan supaya memori telefon tidak penuh
+  const cache = new Map();
+  const HAD_CACHE = 150;
+  function muat(id) {
+    if (cache.has(id)) return cache.get(id);
+    const p = fetch(`assets/audio/${id}.wav`)
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then((ab) => new Promise((ok, gagal) => ctx.decodeAudioData(ab, ok, gagal)))
+      .then((buf) => {
+        // Cari permulaan dan akhir suara (abaikan senyap), tinggalkan jidar kecil
+        const d = buf.getChannelData(0), ambang = 0.02;
+        let i = 0, j = d.length - 1;
+        while (i < j && Math.abs(d[i]) < ambang) i++;
+        while (j > i && Math.abs(d[j]) < ambang) j--;
+        const mula = Math.max(0, i / buf.sampleRate - 0.03);
+        const tempoh = Math.min(buf.duration, j / buf.sampleRate + 0.08) - mula;
+        return { buf, mula, tempoh };
+      });
+    p.catch(() => cache.delete(id));
+    cache.set(id, p);
+    if (cache.size > HAD_CACHE) cache.delete(cache.keys().next().value);
+    return p;
+  }
+
+  // Muat awal senarai teks (contohnya semua perkataan satu lokasi) semasa murid masih membaca menu
+  function pramuat(senarai) {
+    if (!ctx) return;
+    sedia.then(() => {
+      const ids = [...new Set(senarai.map(slug))].filter((id) => fail.has(id) && !cache.has(id));
+      let k = 0;
+      const seterusnya = () => { if (k < ids.length) muat(ids[k++]).catch(() => {}).finally(seterusnya); };
+      for (let n = 0; n < 4; n++) seterusnya(); // 4 muat turun serentak
+    });
+  }
+
   function henti() {
     giliran++;
+    if (sumberSemasa) {
+      try { sumberSemasa.stop(); } catch (e) {}
+      sumberSemasa = null;
+    }
     if (audioSemasa) {
       audioSemasa.pause();
       audioSemasa.currentTime = 0;
@@ -62,6 +111,13 @@ const Suara = (() => {
     }
   }
 
+  function mainFail(id, tamat) {
+    const a = new Audio(`assets/audio/${id}.wav`);
+    audioSemasa = a;
+    a.onended = tamat;
+    a.play().catch(tamat);
+  }
+
   // selepas: dipanggil apabila suara tamat (tidak dipanggil jika suara dihentikan oleh suara lain)
   function main(teks, selepas) {
     if (!teks) return;
@@ -69,11 +125,19 @@ const Suara = (() => {
     const g = giliran;
     const tamat = () => { if (selepas && g === giliran) selepas(); };
     const id = slug(teks);
-    if (fail.has(id)) {
-      const a = new Audio(`assets/audio/${id}.wav`);
-      audioSemasa = a;
-      a.onended = tamat;
-      a.play().catch(tamat);
+    if (fail.has(id) && ctx) {
+      if (ctx.state === 'suspended') ctx.resume();
+      muat(id).then(({ buf, mula, tempoh }) => {
+        if (g !== giliran) return;
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.connect(ctx.destination);
+        src.onended = () => { if (sumberSemasa === src) sumberSemasa = null; tamat(); };
+        sumberSemasa = src;
+        src.start(0, mula, tempoh);
+      }).catch(() => { if (g === giliran) mainFail(id, tamat); });
+    } else if (fail.has(id)) {
+      mainFail(id, tamat);
     } else if (suaraMs) {
       const u = new SpeechSynthesisUtterance(teks);
       u.voice = suaraMs; u.lang = suaraMs.lang; u.rate = 0.8;
@@ -95,7 +159,7 @@ const Suara = (() => {
     return b;
   }
 
-  return { main, henti, butang, slug };
+  return { main, henti, pramuat, butang, slug };
 })();
 
 // ---------- Murid & kemajuan ----------

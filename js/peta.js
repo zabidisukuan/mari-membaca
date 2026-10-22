@@ -326,6 +326,20 @@ function skrinPeta() {
 }
 
 // ---------- Modal Menu Lokasi ----------
+// Kumpul semua teks lokasi ini (data, tutorial, arahan game) dan muat suaranya lebih awal supaya tiada kelewatan
+function pramuatSuara(t) {
+  const teks = [];
+  const kumpul = (v) => {
+    if (typeof v === 'string') { teks.push(v, v.replace(/-/g, ''), ...v.split(/\s+/)); }
+    else if (Array.isArray(v)) v.forEach(kumpul);
+    else if (v && typeof v === 'object') Object.values(v).forEach(kumpul);
+  };
+  kumpul(t);
+  if (typeof TUTORIAL !== 'undefined') kumpul(TUTORIAL[t.id]);
+  if (typeof GAME !== 'undefined' && GAME[t.id]) kumpul(GAME[t.id].arahan);
+  Suara.pramuat(teks);
+}
+
 function menuLokasi(t) {
   const m = Murid.semasa();
   const k = Murid.kemajuan();
@@ -335,6 +349,8 @@ function menuLokasi(t) {
   const latihanSkor = k[t.id];
   const gameSkor = m ? Simpan.get('mm2_game_' + Murid.kunci(m) + '_' + t.id, 0) : 0;
   const gameBuka = (latihanSkor != null && latihanSkor >= LULUS) || modGuru;
+
+  pramuatSuara(t);
 
   const modalHtml = `
     <div class="modal-overlay" id="modalMenu">
