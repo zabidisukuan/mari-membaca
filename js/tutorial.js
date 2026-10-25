@@ -6,7 +6,7 @@ const TUTORIAL = {
     pengenalan: 'Kenal Huruf Vokal dan Konsonan',
     langkah: [
       {
-        teks: 'Huruf vokal ada 5: a, e, i, o, u. Mari sebut bunyi huruf vokal bersama-sama!',
+        teks: 'Huruf vokal ada 5: a, e, i, o, u. Mari sebut huruf vokal bersama-sama!',
         demo: { jenis: 'huruf', huruf: ['a', 'e', 'i', 'o', 'u'] },
       },
       {

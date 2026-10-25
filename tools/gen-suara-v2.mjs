@@ -20,7 +20,7 @@ const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-
 // Huruf tunggal, singkatan (KVK) dan simbol (+, =, bu-ku) dibaca model dengan sebutan Indonesia atau janggal.
 // Untuk ayat ini, teks yang dihantar ke TTS dieja ikut sebutan Malaysia; nama fail tetap ikut teks asal (yang dipaparkan).
 const SEBUTAN = {
-  'Huruf vokal ada 5: a, e, i, o, u. Mari sebut bunyi huruf vokal bersama-sama!': 'Huruf vokal ada lima: ei, i, ai, o, yu. Mari sebut bunyi huruf vokal bersama-sama!',
+  'Huruf vokal ada 5: a, e, i, o, u. Mari sebut huruf vokal bersama-sama!': 'Huruf vokal ada lima: ei, i, ai, o, yu. Mari sebut huruf vokal bersama-sama!',
   'Huruf-huruf lain dipanggil huruf konsonan. Contohnya b, c, d, f, g.': 'Huruf-huruf lain dipanggil huruf konsonan. Contohnya bi, si, di, ef, ji.',
   'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti b, d, p, dan q.': 'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti bi, di, pi, dan kiu.',
   'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.': 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, bi, ei, ba.',
