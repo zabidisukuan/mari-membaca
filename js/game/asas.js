@@ -158,7 +158,7 @@ function mainGame(t) {
   GameAsas.kombo = 1;
 
   const modCepat = !!(window.GAME_UJIAN && window.GAME_UJIAN.cepat);
-  const masaMula = modCepat ? 8 : 60;
+  const masaMula = modCepat ? 8 : (g.masa || 60);
   const pensel = gunaPensel(t.id);
 
   // Tiada pensel langsung: terus ajak murid buat Latihan

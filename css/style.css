@@ -2287,7 +2287,180 @@ form .besar {
   border-top: 3px solid #166534;
 }
 
-/* K3: Kereta Api Suku Kata */
+/* K3: Panjat Bukit (platform gaya Mario; koordinat dalam --u = 1% tinggi pentas) */
+.panjat-dunia {
+  min-height: 400px;
+  max-height: 560px;
+  background-image: url('../assets/v2/latar_k03.jpg');
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.panjat-alam {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  will-change: transform;
+}
+
+.panjat-watak {
+  position: absolute;
+  width: calc(14 * var(--u, 4px));
+  z-index: 3;
+  pointer-events: none;
+}
+
+.panjat-watak.ke-kiri .lompat-watak-img { transform: scaleX(-1); }
+.panjat-watak.berlari .lompat-watak-img { animation: larianGoyang 0.22s infinite alternate; }
+.panjat-watak.ke-kiri.berlari .lompat-watak-img { animation: larianGoyangKiri 0.22s infinite alternate; }
+.panjat-watak.di-udara .lompat-watak-img { transform: rotate(-8deg); }
+.panjat-watak.ke-kiri.di-udara .lompat-watak-img { transform: scaleX(-1) rotate(-8deg); }
+
+@keyframes larianGoyangKiri {
+  from { transform: scaleX(-1) translateY(0) rotate(-3deg); }
+  to { transform: scaleX(-1) translateY(-6px) rotate(3deg); }
+}
+
+.panjat-platform {
+  position: absolute;
+  width: calc(28 * var(--u, 4px));
+  height: calc(9 * var(--u, 4px));
+  z-index: 2;
+  transition: opacity 0.4s, filter 0.3s;
+}
+
+.panjat-platform-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.panjat-platform-teks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32%;
+  text-align: center;
+  font-family: var(--fon-baca);
+  font-size: calc(6.4 * var(--u, 4px));
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 2px 0 #3f2a14, 2px 0 0 #3f2a14, -2px 0 0 #3f2a14, 0 -2px 0 #3f2a14;
+  pointer-events: none;
+}
+
+.panjat-platform.muncul { animation: platMuncul 0.4s ease-out; }
+.panjat-platform.betul { filter: drop-shadow(0 0 10px #4ade80) brightness(1.08); }
+.panjat-platform.betul .panjat-platform-teks { color: #bbf7d0; }
+.panjat-platform.pudar { opacity: 0; }
+.panjat-platform.runtuh { filter: sepia(0.6) hue-rotate(-30deg) saturate(2); animation: platGegar 0.3s; }
+
+@keyframes platMuncul {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes platGegar {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-4px) rotate(-3deg); }
+  75% { transform: translateX(4px) rotate(3deg); }
+}
+
+.panjat-bendera {
+  position: absolute;
+  width: calc(10 * var(--u, 4px));
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: bottom center;
+  animation: benderaNaik 0.6s ease-out;
+}
+
+.panjat-bendera-img { width: 100%; display: block; }
+
+@keyframes benderaNaik {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.panjat-petunjuk {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 6px 14px;
+  border-radius: 16px;
+  width: max-content;
+  max-width: 88%;
+  text-align: center;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+
+.panjat-petunjuk.hilang { opacity: 0; }
+
+/* Butang sentuh (iPad/Android); disembunyikan pada komputer */
+.panjat-kawal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  z-index: 7;
+  display: none;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+.panjat-kawal.tunjuk { display: flex; }
+
+.panjat-kawal-kiri {
+  display: flex;
+  gap: 10px;
+}
+
+.panjat-btn {
+  pointer-events: auto;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.9);
+  background: rgba(15, 23, 42, 0.45);
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.panjat-btn-lompat {
+  width: 78px;
+  height: 78px;
+  background: rgba(234, 88, 12, 0.7);
+}
+
+.panjat-btn.ditekan {
+  transform: scale(0.92);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.panjat-btn-lompat.ditekan { background: rgba(194, 65, 12, 0.9); }
+
+/* K3 lama (Kereta Api) — gaya kereta/gerabak dikongsi oleh K11 */
 .kereta-game-container {
   display: flex;
   flex-direction: column;
