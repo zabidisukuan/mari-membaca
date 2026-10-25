@@ -59,7 +59,7 @@ const TUTORIAL = {
       },
       {
         teks: 'Lihat contoh perkataan tiga suku kata ini pula: to-ma-to.',
-        demo: { jenis: 'perkataan', w: 'to-ma-to' },
+        demo: { jenis: 'perkataan', w: 'to-ma-to', sebut: ['batang to', 'batang ma', 'batang to 2', 'batang tomato'] },
       },
     ],
   },
