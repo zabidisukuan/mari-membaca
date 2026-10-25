@@ -21,6 +21,7 @@ const TUTORIAL = {
   },
   K2: {
     pengenalan: 'Suku Kata KV',
+    latar: 'latar_k02', // assets/v2/latar_k02.jpg (Codex)
     langkah: [
       {
         teks: 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.',
@@ -553,7 +554,8 @@ function mainTutorial(t) {
     const item = tut.langkah[i];
 
     skrin(`
-      <div class="tutorial-wrapper">
+      <div class="tutorial-wrapper${tut.latar ? ' ada-latar' : ''}">
+        ${tut.latar ? `<div class="latar-tahap" style="background-image: url('assets/v2/${tut.latar}.jpg');"></div>` : ''}
         <header class="atas main">
           <button id="tutKeluar" class="kecil" aria-label="Keluar">✕</button>
 

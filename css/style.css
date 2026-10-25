@@ -1235,6 +1235,29 @@ form .besar {
   min-height: 85vh;
 }
 
+/* Latar bergambar ikut tahap (penuh skrin, di belakang kandungan) */
+.latar-tahap {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center bottom;
+  pointer-events: none;
+}
+
+.ada-latar .atas.main {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 6px 14px 6px 6px;
+  box-shadow: var(--bayang);
+}
+
+.ada-latar .tutorial-maskot,
+.ada-latar .demo-pentas {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: #bbf7d0;
+}
+
 .titik-kemajuan {
   display: flex;
   gap: 6px;
