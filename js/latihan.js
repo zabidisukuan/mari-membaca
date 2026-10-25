@@ -319,14 +319,18 @@ function mainLatihan(t) {
   let i = 0, betul = 0, penselDapat = 0;
   let nextTimer = null;
 
+  const latar = htmlLatar(t.id);
   skrin(`
-    <header class="atas main">
-      <button id="keluar" class="kecil" aria-label="Keluar">✕</button>
-      <div class="kemajuan"><div id="bar"></div></div>
-      ${pensel ? `<span class="pensel-baki">✏️ <b id="penselBaki">${Pensel.baki(t.id)}</b></span>` : ''}
-      <span class="label">${t.id}</span>
-    </header>
-    <main id="pentas"></main>`);
+    <div class="${latar ? 'ada-latar' : ''}">
+      ${latar}
+      <header class="atas main">
+        <button id="keluar" class="kecil" aria-label="Keluar">✕</button>
+        <div class="kemajuan"><div id="bar"></div></div>
+        ${pensel ? `<span class="pensel-baki">✏️ <b id="penselBaki">${Pensel.baki(t.id)}</b></span>` : ''}
+        <span class="label">${t.id}</span>
+      </header>
+      <main id="pentas"></main>
+    </div>`);
 
   document.getElementById('keluar').onclick = () => {
     if (nextTimer) clearTimeout(nextTimer);

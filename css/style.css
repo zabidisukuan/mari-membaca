@@ -1253,7 +1253,8 @@ form .besar {
 }
 
 .ada-latar .tutorial-maskot,
-.ada-latar .demo-pentas {
+.ada-latar .demo-pentas,
+.ada-latar .kad-soalan {
   background: rgba(255, 255, 255, 0.92);
   border-color: #bbf7d0;
 }

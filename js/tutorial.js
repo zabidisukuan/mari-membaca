@@ -240,6 +240,12 @@ function cariGambar(w) {
   return { img: null, e: '✨' };
 }
 
+// Latar bergambar tahap (TUTORIAL[id].latar) untuk skrin Tutorial & Latihan; '' jika tiada
+function htmlLatar(id) {
+  const l = TUTORIAL[id] && TUTORIAL[id].latar;
+  return l ? `<div class="latar-tahap" style="background-image: url('assets/v2/${l}.jpg');"></div>` : '';
+}
+
 // Sebut senarai suku kata satu demi satu; suku kata seterusnya hanya bermula selepas suara sebelumnya habis
 // (masa tetap memotong suara yang panjang). Rantaian terputus sendiri jika suara dihentikan (tukar langkah / ulang).
 function mainBerturut(timernya, senarai, serlah, akhir, i = 0) {
@@ -555,7 +561,7 @@ function mainTutorial(t) {
 
     skrin(`
       <div class="tutorial-wrapper${tut.latar ? ' ada-latar' : ''}">
-        ${tut.latar ? `<div class="latar-tahap" style="background-image: url('assets/v2/${tut.latar}.jpg');"></div>` : ''}
+        ${htmlLatar(t.id)}
         <header class="atas main">
           <button id="tutKeluar" class="kecil" aria-label="Keluar">✕</button>
 
