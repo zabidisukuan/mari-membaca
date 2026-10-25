@@ -55,7 +55,7 @@ const TUTORIAL = {
       },
       {
         teks: 'Mari sebut dan baca perkataan ke-la-pa!',
-        demo: { jenis: 'perkataan', w: 'ke-la-pa' },
+        demo: { jenis: 'perkataan', w: 'ke-la-pa', sebut: ['batang ke', 'batang la', 'batang pa', 'batang kelapa'] },
       },
       {
         teks: 'Lihat contoh perkataan tiga suku kata ini pula: to-ma-to.',
@@ -363,13 +363,15 @@ function renderDemo(demo, el, timernya) {
         bersihkanPentasTimer();
         kataLengkapBox.classList.remove('serlah-kata');
         sukuRow.querySelectorAll('.suku-tag-demo').forEach((x) => x.classList.remove('aktif'));
-        mainBerturut(timernya, sukuKata, (idx) => {
+        // demo.sebut (pilihan): suara khas (rakaman guru) untuk setiap suku kata + perkataan
+        const sebut = demo.sebut || [...sukuKata, kataLengkap];
+        mainBerturut(timernya, sebut.slice(0, -1), (idx) => {
           const tags = sukuRow.querySelectorAll('.suku-tag-demo');
           if (tags[idx]) tags[idx].classList.add('aktif');
         }, () => {
           if (!el.isConnected) return;
           kataLengkapBox.classList.add('serlah-kata');
-          Suara.main(kataLengkap);
+          Suara.main(sebut[sebut.length - 1]);
         });
       };
 
