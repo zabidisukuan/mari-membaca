@@ -30,6 +30,7 @@ const Bunyi = (() => {
     betul: () => nada([660, 880]),
     salah: () => nada([220, 180], 0.15, 'triangle'),
     menang: () => nada([523, 659, 784, 1047], 0.14),
+    pecah: () => nada([1200, 400], 0.05, 'square'),
   };
 })();
 
@@ -213,6 +214,23 @@ const Murid = {
     Simpan.set('mm2_beg_' + kM + '_' + tId, true);
   },
 };
+
+// ---------- Pensel: dikumpul di Latihan, digunakan untuk pecah belon dalam game ----------
+const Pensel = {
+  kunci(id) {
+    const m = Murid.semasa();
+    return 'mm2_pensel_' + (m ? Murid.kunci(m) : 'tetamu') + '_' + id;
+  },
+  baki: (id) => Simpan.get(Pensel.kunci(id), 0),
+  tambah(id, n) { Simpan.set(Pensel.kunci(id), Pensel.baki(id) + n); },
+  // Tolak satu pensel; pulangkan baki selepas digunakan
+  guna(id) {
+    const b = Math.max(0, Pensel.baki(id) - 1);
+    Simpan.set(Pensel.kunci(id), b);
+    return b;
+  },
+};
+const PENSEL_BETUL = 3;
 
 const bintang = (p) => (p >= 90 ? 3 : p >= 70 ? 2 : p >= 50 ? 1 : 0);
 const LULUS = 50;

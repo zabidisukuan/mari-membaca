@@ -253,9 +253,22 @@ function render(q, el, selesai) {
   const kad = U.el('div', 'kad-soalan');
   switch (q.type) {
     case 'huruf': {
+      kad.classList.add('kad-langit');
       kad.append(arahanEl('Cari huruf ini:'));
       const sasaran = U.el('div', 'huruf-besar', q.target);
-      kad.append(sasaran, Suara.butang(q.target), pilihanEl(q.opsyen, q.target, selesai, 'belon'));
+      // Pilihan berupa belon berwarna; jawapan betul → belon bersepai
+      const belon = pilihanEl(q.opsyen, q.target, (ok) => {
+        const b = belon.querySelector('.pil.betul');
+        if (b) pecahBelon(b, b.dataset.warna);
+        selesai(ok);
+      }, 'belon');
+      belon.querySelectorAll('.pil').forEach((b, i) => {
+        const w = WARNA_BELON[i % WARNA_BELON.length];
+        b.dataset.warna = w.warna;
+        b.style.animationDelay = `${-i * 0.7}s`;
+        b.innerHTML = `${imgV2('s_belon_' + w.nama, '🎈', 'pil-belon-img')}<span class="pil-belon-huruf">${esc(b.textContent)}</span>`;
+      });
+      kad.append(sasaran, Suara.butang(q.target), belon);
       break;
     }
     case 'bina':
@@ -302,13 +315,15 @@ function render(q, el, selesai) {
 
 function mainLatihan(t) {
   const soalan = binaSoalan(t);
-  let i = 0, betul = 0;
+  const pensel = gunaPensel(t.id);
+  let i = 0, betul = 0, penselDapat = 0;
   let nextTimer = null;
 
   skrin(`
     <header class="atas main">
       <button id="keluar" class="kecil" aria-label="Keluar">✕</button>
       <div class="kemajuan"><div id="bar"></div></div>
+      ${pensel ? `<span class="pensel-baki">✏️ <b id="penselBaki">${Pensel.baki(t.id)}</b></span>` : ''}
       <span class="label">${t.id}</span>
     </header>
     <main id="pentas"></main>`);
@@ -331,6 +346,21 @@ function mainLatihan(t) {
       Suara.main(q.suara);
       const kad = pentas.querySelector('.kad-soalan');
       if (kad) kad.classList.add('berjaya');
+      // Jawapan betul pada cubaan pertama → dapat pensel untuk game
+      if (pensel && ok) {
+        Pensel.tambah(t.id, PENSEL_BETUL);
+        penselDapat += PENSEL_BETUL;
+        const elBaki = document.getElementById('penselBaki');
+        if (elBaki) {
+          elBaki.textContent = Pensel.baki(t.id);
+          const r = elBaki.getBoundingClientRect();
+          const popup = U.el('div', 'popup-skor', `+${PENSEL_BETUL} ✏️`);
+          popup.style.left = `${r.left}px`;
+          popup.style.top = `${r.bottom + 4}px`;
+          document.body.appendChild(popup);
+          setTimeout(() => popup.remove(), 800);
+        }
+      }
       i++;
       if (nextTimer) clearTimeout(nextTimer);
       nextTimer = setTimeout(seterusnya, q.type === 'susun' || q.type === 'faham' ? 1800 : 1200);
@@ -356,6 +386,7 @@ function mainLatihan(t) {
         <h2>${tajukMesej}</h2>
         <div class="bintang-besar">${'★'.repeat(b)}${'☆'.repeat(3 - b)}</div>
         <p class="markah">${betul} / ${soalan.length} betul &nbsp;·&nbsp; <b>${peratus}%</b></p>
+        ${pensel ? `<p class="pensel-dapat">✏️ Kamu dapat ${penselDapat} pensel! Jumlah: ${Pensel.baki(t.id)}</p>` : ''}
         <p class="status" id="status">Menghantar markah…</p>
         <div class="butang-butang">
           <button id="ulang" class="besar kedua">↻ Ulang</button>

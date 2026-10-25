@@ -17,6 +17,57 @@ const GANJARAN_BARANG = {
   K12: { id: 'g_k12', nama: 'Mahkota', emoji: '👑' },
 };
 
+// Warna belon (ikut gambar s_belon_<nama>) — juga warna serpihan semasa pecah
+const WARNA_BELON = [
+  { nama: 'merah', warna: '#ef4444' },
+  { nama: 'hijau', warna: '#22c55e' },
+  { nama: 'kuning', warna: '#facc15' },
+  { nama: 'biru', warna: '#3b82f6' },
+];
+
+const gunaPensel = (id) => !!(GAME[id] && GAME[id].pensel);
+
+// Belon bersepai: serpihan getah terpelanting, kilatan POP, kemudian belon disembunyikan
+function pecahBelon(elemen, warna) {
+  const r = elemen.getBoundingClientRect();
+  const pusat = document.createElement('div');
+  pusat.className = 'pecah-pusat';
+  pusat.style.left = `${r.left + r.width / 2}px`;
+  pusat.style.top = `${r.top + r.height * 0.4}px`;
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.className = 'serpihan';
+    const sudut = (i / 12) * Math.PI * 2 + Math.random() * 0.5;
+    const jarak = r.width * (0.6 + Math.random() * 0.6);
+    const saiz = 8 + Math.random() * 14;
+    s.style.cssText = `width:${saiz}px;height:${saiz * (0.5 + Math.random() * 0.6)}px;background:${warna};` +
+      `border-radius:${40 + Math.random() * 30}% ${10 + Math.random() * 40}%;` +
+      `--dx:${Math.cos(sudut) * jarak}px;--dy:${Math.sin(sudut) * jarak}px;--rot:${Math.random() * 720 - 360}deg;`;
+    pusat.appendChild(s);
+  }
+  const pop = document.createElement('span');
+  pop.className = 'pecah-pop';
+  pop.textContent = 'POP!';
+  pusat.appendChild(pop);
+  document.body.appendChild(pusat);
+  elemen.classList.add('bersepai');
+  Bunyi.pecah();
+  setTimeout(() => pusat.remove(), 800);
+}
+
+// Pensel ikut jari: papar pensel "mencucuk" di tempat sentuhan (skrin sentuh tiada kursor)
+function cucukPensel(e) {
+  if (e.pointerType === 'mouse') return;
+  const p = document.createElement('img');
+  p.src = laluanV2('s_pensel');
+  p.className = 'pensel-cucuk';
+  p.alt = '';
+  p.style.left = `${e.clientX}px`;
+  p.style.top = `${e.clientY}px`;
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 450);
+}
+
 const GameAsas = {
   skor: 0,
   kombo: 1,
@@ -64,6 +115,14 @@ const GameAsas = {
     }
   },
 
+  // Tolak satu pensel setiap tekan; pulangkan false jika pensel sudah habis selepas tekan ini
+  gunaPensel(id) {
+    const baki = Pensel.guna(id);
+    const el = document.getElementById('gamePensel');
+    if (el) el.textContent = baki;
+    return baki > 0;
+  },
+
   salah(elemen) {
     this.kombo = 1;
     const elKombo = document.getElementById('gameKombo');
@@ -100,16 +159,24 @@ function mainGame(t) {
 
   const modCepat = !!(window.GAME_UJIAN && window.GAME_UJIAN.cepat);
   const masaMula = modCepat ? 8 : 60;
+  const pensel = gunaPensel(t.id);
+
+  // Tiada pensel langsung: terus ajak murid buat Latihan
+  if (pensel && Pensel.baki(t.id) <= 0) {
+    tamatGame(t, g, { penselHabis: true, belumMain: true });
+    return;
+  }
 
   function lancar() {
     skrin(`
-      <div class="skrin-game-wrapper">
+      <div class="skrin-game-wrapper${pensel ? ' guna-pensel' : ''}">
         <div class="game-bg-overlay" style="background-image: url('${laluanV2(g.latar || 'lok_k01')}');"></div>
         <header class="atas bar-game">
           <button id="btnKeluarGame" class="kecil btn-keluar-game" aria-label="Keluar">✕</button>
           <div class="game-stat">
             <span>⏱ <strong id="gameMasa">${masaMula}</strong>s</span>
             <span>⭐ <strong id="gameSkor">0</strong></span>
+            ${pensel ? `<span class="pensel-tag">✏️ <strong id="gamePensel">${Pensel.baki(t.id)}</strong></span>` : ''}
             <span class="kombo-tag">🔥 <strong id="gameKombo">×1</strong></span>
           </div>
         </header>
@@ -125,6 +192,7 @@ function mainGame(t) {
     };
 
     const pentas = document.getElementById('gamePentas');
+    if (pensel) pentas.addEventListener('pointerdown', cucukPensel);
     GameAsas.pemasa = masaMula;
 
     GameAsas.pemasaId = setInterval(() => {
@@ -143,7 +211,7 @@ function mainGame(t) {
     g.mula(pentas, t, (hasil) => {
       if (GameAsas.pemasaId) clearInterval(GameAsas.pemasaId);
       if (g.henti) g.henti();
-      tamatGame(t, g);
+      tamatGame(t, g, hasil);
     });
   }
 
@@ -201,7 +269,25 @@ function mainGame(t) {
   }
 }
 
-function tamatGame(t, g) {
+function tamatGame(t, g, hasil) {
+  const penselHabis = !!(hasil && hasil.penselHabis);
+  if (hasil && hasil.belumMain) {
+    skrin(`
+      <div class="keputusan game-keputusan">
+        <div class="maskot-keputusan">${imgV2('kancil_fikir', '🤔', 'img-maskot')}</div>
+        <h2>Pensel dah habis!</h2>
+        <p class="pensel-ajak">✏️ Jom buat Latihan untuk dapat pensel. Setiap jawapan betul dapat ${PENSEL_BETUL} pensel.</p>
+        <div class="butang-butang">
+          <button id="latihanGame" class="besar">✏️ Latihan</button>
+          <button id="petaGame" class="besar kedua">🗺️ Peta</button>
+        </div>
+      </div>
+    `);
+    document.getElementById('latihanGame').onclick = () => mainLatihan(t);
+    document.getElementById('petaGame').onclick = () => skrinPeta();
+    return;
+  }
+
   const m = Murid.semasa();
   const kunciM = m ? Murid.kunci(m) : '';
   const skorAkhir = GameAsas.skor;
@@ -233,7 +319,7 @@ function tamatGame(t, g) {
 
   const maskotImg = b >= 1 ? 'kancil_gembira' : 'kancil_fikir';
   const maskotEmoji = b >= 1 ? '🥳' : '🤔';
-  const tajukMesej = b === 3 ? 'Luar Biasa!' : b === 2 ? 'Syabas!' : b === 1 ? 'Bagus!' : 'Cuba lagi!';
+  const tajukMesej = penselHabis ? 'Pensel dah habis!' : b === 3 ? 'Luar Biasa!' : b === 2 ? 'Syabas!' : b === 1 ? 'Bagus!' : 'Cuba lagi!';
 
   skrin(`
     <div class="keputusan game-keputusan">
@@ -241,6 +327,7 @@ function tamatGame(t, g) {
         ${imgV2(maskotImg, maskotEmoji, 'img-maskot')}
       </div>
       <h2>${tajukMesej}</h2>
+      ${penselHabis ? '<p class="pensel-ajak">✏️ Jom buat Latihan untuk dapat pensel lagi!</p>' : ''}
       <div class="bintang-besar">${'★'.repeat(b)}${'☆'.repeat(3 - b)}</div>
       <p class="markah">Skor: <strong>${skorAkhir}</strong> &nbsp;·&nbsp; Tertinggi: <strong>${Math.max(skorAkhir, skorLama)}</strong></p>
 
@@ -259,12 +346,15 @@ function tamatGame(t, g) {
       }
 
       <div class="butang-butang">
-        <button id="ulangGame" class="besar">↻ Main lagi</button>
+        ${penselHabis
+          ? '<button id="latihanGame" class="besar">✏️ Latihan</button>'
+          : '<button id="ulangGame" class="besar">↻ Main lagi</button>'}
         <button id="petaGame" class="besar kedua">🗺️ Peta</button>
       </div>
     </div>
   `);
 
-  document.getElementById('ulangGame').onclick = () => mainGame(t);
+  if (penselHabis) document.getElementById('latihanGame').onclick = () => mainLatihan(t);
+  else document.getElementById('ulangGame').onclick = () => mainGame(t);
   document.getElementById('petaGame').onclick = () => skrinPeta();
 }

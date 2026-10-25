@@ -785,7 +785,15 @@ form .besar {
 
 /* ---------- Permainan & Latihan ---------- */
 .atas.main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   flex-wrap: nowrap;
+  margin-bottom: 10px;
+}
+
+.atas.main .pensel-baki {
+  margin-left: 0;
 }
 
 .kemajuan {
@@ -940,21 +948,78 @@ form .besar {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.pilihan.belon .pil {
-  border-radius: 50% 50% 46% 46%;
-  aspect-ratio: 0.85;
-  font-size: 2.4rem;
-  min-height: 0;
-  padding: 0;
+/* Latihan K1: kad langit dengan belon terapung */
+.kad-soalan.kad-langit {
+  background:
+    url('../assets/v2/s_awan.png') no-repeat 6% 10% / 22% auto,
+    url('../assets/v2/s_awan.png') no-repeat 94% 34% / 16% auto,
+    linear-gradient(180deg, #bfe6ff 0%, #e6f6ff 60%, #fdfbea 100%);
 }
 
-.pilihan.belon .pil:nth-child(1) { background: #ffd6e0; border-color: #f43f5e; box-shadow: 0 6px 0 #e11d48; }
-.pilihan.belon .pil:nth-child(2) { background: #d0f4de; border-color: #10b981; box-shadow: 0 6px 0 #059669; }
-.pilihan.belon .pil:nth-child(3) { background: #fcf6bd; border-color: #eab308; box-shadow: 0 6px 0 #ca8a04; }
-.pilihan.belon .pil:nth-child(4) { background: #cde7ff; border-color: #3b82f6; box-shadow: 0 6px 0 #2563eb; }
+.kad-langit .huruf-besar {
+  background: #ffffff;
+  border: 4px solid #fbbf24;
+  border-radius: 28px;
+  padding: 6px 34px 14px;
+  box-shadow: 0 6px 0 #f59e0b;
+}
 
-.pilihan.belon .pil.betul { transform: scale(1.1); }
-.pilihan.belon .pil.salah { opacity: 0.35; }
+.pilihan.belon {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.pilihan.belon .pil {
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  aspect-ratio: 0.72;
+  min-height: 0;
+  padding: 0;
+  animation: apung 2.8s ease-in-out infinite;
+}
+
+.pilihan.belon .pil:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.pil-belon-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.pil-belon-huruf {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2.2rem, 9vw, 3.2rem);
+  font-weight: 800;
+  font-family: var(--fon-baca);
+  color: #0f172a;
+  text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+  pointer-events: none;
+}
+
+@keyframes apung {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.pilihan.belon .pil.betul,
+.pilihan.belon .pil.salah {
+  background: transparent;
+  box-shadow: none;
+}
+
+.pilihan.belon .pil.salah { opacity: 0.3; filter: grayscale(1); }
+.pilihan.belon .pil:disabled:not(.salah):not(.betul) { animation-play-state: paused; }
 
 .persamaan {
   display: flex;
@@ -1901,10 +1966,97 @@ form .besar {
   pointer-events: none;
 }
 
-.belon-item.pecah {
-  transform: scale(1.4);
-  opacity: 0;
-  transition: transform 0.3s, opacity 0.3s;
+.belon-item.bersepai,
+.pilihan.belon .pil.bersepai {
+  visibility: hidden;
+}
+
+/* Belon bersepai: serpihan terpelanting dari satu titik pusat */
+.pecah-pusat {
+  position: fixed;
+  width: 0;
+  height: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.serpihan {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-shadow: inset -2px -2px 0 rgba(0,0,0,0.18);
+  animation: terpelanting 0.7s cubic-bezier(0.15, 0.7, 0.4, 1) forwards;
+}
+
+@keyframes terpelanting {
+  0% { transform: translate(-50%, -50%) rotate(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 40px)) rotate(var(--rot)) scale(0.6); opacity: 0; }
+}
+
+.pecah-pop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--fon-tajuk);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  -webkit-text-stroke: 2px #f97316;
+  animation: popKilat 0.5s ease-out forwards;
+}
+
+@keyframes popKilat {
+  0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+  60% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+/* Kursor pensel (komputer) & pensel mencucuk di tempat sentuhan (telefon/tablet) */
+.guna-pensel,
+.guna-pensel button {
+  cursor: url('../assets/v2/s_pensel_kursor.png') 3 4, pointer;
+}
+
+.pensel-cucuk {
+  position: fixed;
+  width: 56px;
+  z-index: 1001;
+  pointer-events: none;
+  transform-origin: 6% 6%;
+  animation: cucuk 0.45s ease-out forwards;
+}
+
+@keyframes cucuk {
+  0% { transform: translate(10px, 10px) rotate(8deg); opacity: 0; }
+  30% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  55% { transform: translate(3px, 3px) rotate(-4deg); opacity: 1; }
+  100% { transform: translate(14px, 14px); opacity: 0; }
+}
+
+.pensel-tag {
+  color: #b45309;
+}
+
+.pensel-ajak {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #b45309;
+  margin: 4px 0 12px;
+}
+
+.pensel-baki {
+  margin-left: auto;
+  font-weight: 800;
+  color: #b45309;
+  white-space: nowrap;
+}
+
+.pensel-dapat {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #b45309;
+  margin: 0 0 6px;
 }
 
 .belon-item.pop-salah {

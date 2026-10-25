@@ -4,6 +4,7 @@ GAME['K1'] = {
   nama: 'Pecah Belon',
   latar: 'lok_k01',
   arahan: 'Pecahkan belon yang membawa huruf sasaran!',
+  pensel: true, // Setiap tekan guna satu pensel (dikumpul di Latihan)
 
   animFrameId: null,
   timerId: null,
@@ -52,15 +53,16 @@ GAME['K1'] = {
       const pilihanHuruf = U.shuffle([target, ...pengacauPilihan]);
       const xPositions = [2, 26, 50, 74];
       const shuffledX = U.shuffle(xPositions);
+      const warnaKocok = U.shuffle(WARNA_BELON);
 
       pilihanHuruf.forEach((h, idx) => {
         const belon = document.createElement('button');
         belon.className = 'belon-item';
-        const hue = (idx * 75 + Math.floor(Math.random() * 40)) % 360;
+        const warna = warnaKocok[idx % warnaKocok.length];
 
         belon.innerHTML = `
-          <div class="belon-body" style="filter: hue-rotate(${hue}deg);">
-            ${imgV2('s_belon', '🎈', 'belon-img sprite-img')}
+          <div class="belon-body">
+            ${imgV2('s_belon_' + warna.nama, '🎈', 'belon-img sprite-img')}
           </div>
           <span class="belon-label">${h}</span>
         `;
@@ -82,21 +84,27 @@ GAME['K1'] = {
 
         belon.onclick = () => {
           if (!soalanAktif) return;
+          const adaLagi = GameAsas.gunaPensel('K1');
 
           if (h === target) {
             soalanAktif = false;
-            belon.classList.add('pecah');
             GameAsas.betul(target, belon);
+            pecahBelon(belon, warna.warna);
+          } else {
+            belon.classList.add('pop-salah');
+            GameAsas.salah(belon);
+            setTimeout(() => belon.classList.remove('pop-salah'), 400);
+          }
 
+          if (!adaLagi) {
+            soalanAktif = false;
+            this.timerId = setTimeout(() => selesai({ penselHabis: true }), 900);
+          } else if (h === target) {
             this.timerId = setTimeout(() => {
               if (GameAsas.pemasa > 0) {
                 buatSoalan();
               }
             }, 900);
-          } else {
-            belon.classList.add('pop-salah');
-            GameAsas.salah(belon);
-            setTimeout(() => belon.classList.remove('pop-salah'), 400);
           }
         };
 

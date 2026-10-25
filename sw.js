@@ -1,6 +1,6 @@
 // Service Worker untuk Pulau Membaca v2
 
-const CACHE_NAME = 'pulau-v2-4';
+const CACHE_NAME = 'pulau-v2-5';
 
 const PRECACHE_URLS = [
   './',
@@ -49,6 +49,12 @@ const PRECACHE_URLS = [
   'assets/v2/aina.png',
   'assets/v2/aina_gembira.png',
   'assets/v2/s_belon.png',
+  'assets/v2/s_belon_merah.png',
+  'assets/v2/s_belon_hijau.png',
+  'assets/v2/s_belon_kuning.png',
+  'assets/v2/s_belon_biru.png',
+  'assets/v2/s_pensel.png',
+  'assets/v2/s_pensel_kursor.png',
   'assets/v2/s_ulat_kepala.png',
   'assets/v2/s_ulat_badan.png',
   'assets/v2/s_daun.png',

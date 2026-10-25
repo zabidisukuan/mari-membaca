@@ -398,7 +398,7 @@ function menuLokasi(t) {
             <span class="btn-icon">${gameBuka ? '🎮' : '🔒'}</span>
             <div class="btn-text">
               <strong>Game</strong>
-              <small>${gameBuka ? (gameSkor ? 'Skor: ' + gameSkor : 'Main & kumpul ganjaran') : 'Buka Latihan ≥ 50%'}</small>
+              <small>${gameBuka ? (gameSkor ? 'Skor: ' + gameSkor : 'Main & kumpul ganjaran') : 'Buka Latihan ≥ 50%'}${gameBuka && gunaPensel(t.id) ? ' · ✏️ ' + Pensel.baki(t.id) : ''}</small>
             </div>
           </button>
         </div>
