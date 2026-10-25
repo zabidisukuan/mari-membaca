@@ -29,7 +29,8 @@ const TUTORIAL = {
       },
       {
         teks: 'Mari cuba cantumkan huruf lain! k + u = ku.',
-        demo: { jenis: 'cantum', bahagian: ['k', 'u'], hasil: 'ku' },
+        // sebut: rakaman guru membatang (k, u, ku); nama huruf K1 ("kei", "yu") berbunyi seperti "Q" jika berturutan
+        demo: { jenis: 'cantum', bahagian: ['k', 'u'], hasil: 'ku', sebut: ['batang k', 'batang u', 'batang ku'] },
       },
       {
         teks: 'Dua suku kata bercantum menjadi satu perkataan: bu + ku = buku.',
@@ -319,7 +320,9 @@ function renderDemo(demo, el, timernya) {
         bersihkanPentasTimer();
         wrap.classList.remove('bercantum');
         void wrap.offsetWidth;
-        mainBerturut(timernya, demo.bahagian, (idx) => {
+        // demo.sebut (pilihan): suara khas untuk setiap bahagian + hasil, menggantikan suara biasa
+        const sebut = demo.sebut || [...demo.bahagian, demo.hasil];
+        mainBerturut(timernya, sebut.slice(0, -1), (idx) => {
           const elP = kepinganBox.querySelectorAll('.kepingan-demo')[idx];
           if (elP) {
             elP.classList.add('denyut');
@@ -330,7 +333,7 @@ function renderDemo(demo, el, timernya) {
           wrap.classList.add('bercantum');
           hasilBox.classList.add('pop');
           setTimeout(() => hasilBox.classList.remove('pop'), 500);
-          Suara.main(demo.hasil);
+          Suara.main(sebut[sebut.length - 1]);
         });
       };
 
