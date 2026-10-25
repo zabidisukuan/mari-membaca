@@ -28,7 +28,7 @@ const TUTORIAL = {
         demo: { jenis: 'cantum', bahagian: ['b', 'a'], hasil: 'ba' },
       },
       {
-        teks: 'Mari cuba cantumkan huruf lain! k + u = ku.',
+        teks: 'Mari cantumkan suku kata lain! k + u = ku.', // suara: rakaman guru (ayat sahaja)
         // sebut: rakaman guru membatang (k, u, ku); nama huruf K1 ("kei", "yu") berbunyi seperti "Q" jika berturutan
         demo: { jenis: 'cantum', bahagian: ['k', 'u'], hasil: 'ku', sebut: ['batang k', 'batang u', 'batang ku'] },
       },

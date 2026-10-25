@@ -24,8 +24,9 @@ const SEBUTAN = {
   'Huruf-huruf lain dipanggil huruf konsonan. Contohnya b, c, d, f, g.': 'Huruf-huruf lain dipanggil huruf konsonan. Contohnya bi, si, di, ef, ji.',
   'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti b, d, p, dan q.': 'Awas! Jangan keliru dengan huruf yang bentuknya hampir sama seperti bi, di, pi, dan kiu.',
   'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, b + a = ba.': 'Huruf konsonan dan vokal bercantum menjadi suku kata. Contohnya, bi, ei, ba.',
-  // "kei, yu" berturutan berbunyi "Q"; huruf dibatang oleh rakaman guru dalam demo selepas ayat ini
-  'Mari cuba cantumkan huruf lain! k + u = ku.': 'Mari cuba cantumkan huruf lain!',
+  // "kei, yu" berturutan berbunyi "Q"; huruf dibatang oleh rakaman guru dalam demo selepas ayat ini.
+  // Fail sebenar ialah rakaman guru — jangan jana semula kecuali guru minta.
+  'Mari cantumkan suku kata lain! k + u = ku.': 'Mari cantumkan suku kata lain!',
   'Dua suku kata bercantum: di + a = dia.': 'Dua suku kata bercantum: di, a, dia.',
   'Dua suku kata bercantum menjadi satu perkataan: bu + ku = buku.': 'Dua suku kata bercantum menjadi satu perkataan: bu, ku, buku.',
   'Mari sebut dan baca perkataan bu-ku!': 'Mari sebut dan baca perkataan buku!',
