@@ -48,6 +48,7 @@ const TUTORIAL = {
   },
   K3: {
     pengenalan: 'Perkataan KVKVKV',
+    latar: 'latar_k03', // assets/v2/latar_k03.jpg (Codex: hutan berbukit)
     langkah: [
       {
         teks: 'Perkataan ini terbina daripada tiga suku kata: ke + la + pa = kelapa.', // suara: rakaman guru (ayat sahaja)
