@@ -1,6 +1,6 @@
 // Service Worker untuk Pulau Membaca v2
 
-const CACHE_NAME = 'pulau-v2-5';
+const CACHE_NAME = 'pulau-v2-6';
 
 const PRECACHE_URLS = [
   './',
@@ -14,7 +14,7 @@ const PRECACHE_URLS = [
   'js/tutorial.js',
   'js/game/asas.js',
   'js/game/k01-belon.js',
-  'js/game/k02-ulat.js',
+  'js/game/k02-lompat.js',
   'js/game/k03-kereta.js',
   'js/game/k04-ikan.js',
   'js/game/k05-katak.js',
@@ -55,9 +55,11 @@ const PRECACHE_URLS = [
   'assets/v2/s_belon_biru.png',
   'assets/v2/s_pensel.png',
   'assets/v2/s_pensel_kursor.png',
-  'assets/v2/s_ulat_kepala.png',
-  'assets/v2/s_ulat_badan.png',
-  'assets/v2/s_daun.png',
+  'assets/v2/aiman_lari.png',
+  'assets/v2/aina_lari.png',
+  'assets/v2/s_blok.png',
+  'assets/v2/s_syiling.png',
+  'assets/v2/latar_k02.jpg',
   'assets/v2/s_kepala_kereta.png',
   'assets/v2/s_gerabak.png',
   'assets/v2/s_ikan.png',

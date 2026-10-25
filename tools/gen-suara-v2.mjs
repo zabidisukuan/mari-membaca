@@ -113,7 +113,8 @@ for (const t of todo) {
   let ok = false;
   for (let c = 1; c <= 4 && !ok; c++) {
     try {
-      const audio = await jana(SEBUTAN[t] || t);
+      // Suku kata tunggal (cth. "gu") dibaca model sebagai perkataan lain; tanda seru menjadikannya satu sebutan sahaja
+      const audio = await jana(SEBUTAN[t] || (/^[a-z]{1,4}$/.test(t) ? t + '!' : t));
       // ~13 aksara sesaat; jauh lebih panjang bermakna arahan turut dibaca, jadi cuba lagi
       const saat = (audio.length - 44) / 48000, had = (SEBUTAN[t] || t).length / 13 * 1.8 + 2;
       if (saat > had) throw new Error(`terlalu panjang (${saat.toFixed(1)}s > ${had.toFixed(1)}s)`);

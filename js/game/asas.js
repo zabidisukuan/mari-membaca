@@ -271,6 +271,7 @@ function mainGame(t) {
 
 function tamatGame(t, g, hasil) {
   const penselHabis = !!(hasil && hasil.penselHabis);
+  const nyawaHabis = !!(hasil && hasil.nyawaHabis);
   if (hasil && hasil.belumMain) {
     skrin(`
       <div class="keputusan game-keputusan">
@@ -319,7 +320,7 @@ function tamatGame(t, g, hasil) {
 
   const maskotImg = b >= 1 ? 'kancil_gembira' : 'kancil_fikir';
   const maskotEmoji = b >= 1 ? '🥳' : '🤔';
-  const tajukMesej = penselHabis ? 'Pensel dah habis!' : b === 3 ? 'Luar Biasa!' : b === 2 ? 'Syabas!' : b === 1 ? 'Bagus!' : 'Cuba lagi!';
+  const tajukMesej = penselHabis ? 'Pensel dah habis!' : nyawaHabis ? 'Nyawa habis!' : b === 3 ? 'Luar Biasa!' : b === 2 ? 'Syabas!' : b === 1 ? 'Bagus!' : 'Cuba lagi!';
 
   skrin(`
     <div class="keputusan game-keputusan">
@@ -328,6 +329,7 @@ function tamatGame(t, g, hasil) {
       </div>
       <h2>${tajukMesej}</h2>
       ${penselHabis ? '<p class="pensel-ajak">✏️ Jom buat Latihan untuk dapat pensel lagi!</p>' : ''}
+      ${nyawaHabis ? '<p class="pensel-ajak">❤️ Cuba lagi, kamu boleh!</p>' : ''}
       <div class="bintang-besar">${'★'.repeat(b)}${'☆'.repeat(3 - b)}</div>
       <p class="markah">Skor: <strong>${skorAkhir}</strong> &nbsp;·&nbsp; Tertinggi: <strong>${Math.max(skorAkhir, skorLama)}</strong></p>
 
