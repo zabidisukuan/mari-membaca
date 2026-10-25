@@ -50,8 +50,8 @@ const TUTORIAL = {
     pengenalan: 'Perkataan KVKVKV',
     langkah: [
       {
-        teks: 'Perkataan ini terbina daripada tiga suku kata: ke + la + pa = kelapa.',
-        demo: { jenis: 'cantum', bahagian: ['ke', 'la', 'pa'], hasil: 'kelapa' },
+        teks: 'Perkataan ini terbina daripada tiga suku kata: ke + la + pa = kelapa.', // suara: rakaman guru (ayat sahaja)
+        demo: { jenis: 'cantum', bahagian: ['ke', 'la', 'pa'], hasil: 'kelapa', sebut: ['batang ke', 'batang la', 'batang pa', 'batang kelapa'] },
       },
       {
         teks: 'Mari sebut dan baca perkataan ke-la-pa!',

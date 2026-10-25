@@ -26,7 +26,7 @@ Setiap lokasi ada 3 bahagian:
 |---|---|---|---|
 | K1 | Kampung Huruf | Huruf a–z | Pecah Belon |
 | K2 | Hutan Suku Kata | KV / KVKV | Ulat Lapar |
-| K3 | Bukit Tiga Suku | KVKVKV | Kereta Api Suku Kata |
+| K3 | Bukit Tiga Suku Kata | KVKVKV | Kereta Api Suku Kata |
 | K4 | Kolam Ikan | KVK | Tangkap Ikan |
 | K5 | Sungai Batu | KVKKV / KVKVK | Katak Melompat |
 | K6 | Pasar Ng | Perkataan "ng" | Bakul Pasar |

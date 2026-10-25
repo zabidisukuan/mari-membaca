@@ -3,7 +3,7 @@
 const LOKASI_INFO = [
   { id: 'K1', nama: 'Kampung Huruf', img: 'lok_k01', emoji: '🏠', barang: 'g_k01', namaBarang: 'Pensel Ajaib', emojiBarang: '✏️', sapaan: 'Selamat datang ke Kampung Huruf! Mari mengenal huruf.' },
   { id: 'K2', nama: 'Hutan Suku Kata', img: 'lok_k02', emoji: '🌲', barang: 'g_k02', namaBarang: 'Daun Emas', emojiBarang: '🍃', sapaan: 'Selamat datang ke Hutan Suku Kata! Mari cantumkan suku kata menjadi perkataan.' },
-  { id: 'K3', nama: 'Bukit Tiga Suku', img: 'lok_k03', emoji: '⛰️', barang: 'g_k03', namaBarang: 'Tiket Emas', emojiBarang: '🎟️', sapaan: 'Selamat datang ke Bukit Tiga Suku! Mari membaca perkataan tiga suku kata.' },
+  { id: 'K3', nama: 'Bukit Tiga Suku Kata', img: 'lok_k03', emoji: '⛰️', barang: 'g_k03', namaBarang: 'Tiket Emas', emojiBarang: '🎟️', sapaan: 'Selamat datang ke Bukit Tiga Suku Kata! Mari membaca perkataan tiga suku kata.' },
   { id: 'K4', nama: 'Kolam Ikan', img: 'lok_k04', emoji: '🐟', barang: 'g_k04', namaBarang: 'Piala Ikan Emas', emojiBarang: '🏆', sapaan: 'Selamat datang ke Kolam Ikan! Mari membaca perkataan pendek seperti bas dan jam.' },
   { id: 'K5', nama: 'Sungai Batu', img: 'lok_k05', emoji: '🏞️', barang: 'g_k05', namaBarang: 'Permata Biru', emojiBarang: '💎', sapaan: 'Selamat datang ke Sungai Batu! Mari membaca perkataan seperti lampu dan jarum.' },
   { id: 'K6', nama: 'Pasar Ng', img: 'lok_k06', emoji: '🏪', barang: 'g_k06', namaBarang: 'Bakul Buah', emojiBarang: '🧺', sapaan: 'Selamat datang ke Pasar Ng! Mari membaca perkataan yang mengandungi ng.' },
