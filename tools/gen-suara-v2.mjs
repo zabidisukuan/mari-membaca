@@ -27,7 +27,9 @@ const SEBUTAN = {
   'Mari cuba cantumkan huruf lain! k + u = ku.': 'Mari cuba cantumkan huruf lain! Kei, yu, ku.',
   'Dua suku kata bercantum: di + a = dia.': 'Dua suku kata bercantum: di, a, dia.',
   'Dua suku kata bercantum menjadi satu perkataan: bu + ku = buku.': 'Dua suku kata bercantum menjadi satu perkataan: bu, ku, buku.',
-  'Mari sebut dan baca perkataan bu-ku!': 'Mari sebut dan baca perkataan bu, ku!',
+  'Mari sebut dan baca perkataan bu-ku!': 'Mari sebut dan baca perkataan buku!',
+  // Suku kata demo: "ki" sahaja dibaca model sebagai "ki... kita kita"; "ki!" disahkan guru
+  'ki': 'ki!',
   'Satu lagi contoh perkataan dua suku kata: ka-ki.': 'Satu lagi contoh perkataan dua suku kata: ka, ki.',
   'Perkataan ini terbina daripada tiga suku kata: ke + la + pa = kelapa.': 'Perkataan ini terbina daripada tiga suku kata: ke, la, pa, kelapa.',
   'Mari sebut dan baca perkataan ke-la-pa!': 'Mari sebut dan baca perkataan ke, la, pa!',
@@ -94,10 +96,11 @@ if (process.argv.includes('--senarai')) { semua.forEach((t) => console.log(t)); 
 if (!KEY) { console.error('Sila tetapkan GEMINI_API_KEY.'); process.exit(1); }
 // --sebutan: jana semula hanya ayat dalam SEBUTAN; --semua: jana semula semua ayat (fail lama ditimpa)
 const semula = process.argv.includes('--sebutan') || process.argv.includes('--semua') || process.argv.includes('--ayat');
-// --ayat <fail.txt>: jana semula hanya ayat yang disenaraikan (satu ayat sebaris, teks asal seperti dipaparkan)
+// --ayat <fail.txt>: jana semula hanya ayat yang disenaraikan (satu ayat sebaris, teks asal seperti dipaparkan).
+// Teks yang tiada dalam kod (cth. suku kata demo tutorial: bu, ku) juga dibenarkan.
 const iAyat = process.argv.indexOf('--ayat');
-const pilihan = iAyat > 0 ? new Set(fs.readFileSync(process.argv[iAyat + 1], 'utf8').split(/\r?\n/).map((x) => x.trim()).filter(Boolean)) : null;
-const senarai = pilihan ? semua.filter((t) => pilihan.has(t)) : process.argv.includes('--sebutan') ? semua.filter((t) => SEBUTAN[t]) : process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
+const pilihan = iAyat > 0 ? [...new Set(fs.readFileSync(process.argv[iAyat + 1], 'utf8').split(/\r?\n/).map((x) => x.trim()).filter(Boolean))] : null;
+const senarai = pilihan ? pilihan :process.argv.includes('--sebutan') ? semua.filter((t) => SEBUTAN[t]) : process.argv.includes('--sampel') ? semua.slice(0, 3) : semua;
 // --sejak <masa ISO>: sambung kerja yang terhenti (cth. had kuota harian); langkau fail yang sudah dijana selepas masa itu
 const iSejak = process.argv.indexOf('--sejak');
 const sejak = iSejak > 0 ? new Date(process.argv[iSejak + 1]).getTime() : 0;

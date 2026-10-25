@@ -239,6 +239,16 @@ function cariGambar(w) {
   return { img: null, e: '✨' };
 }
 
+// Sebut senarai suku kata satu demi satu; suku kata seterusnya hanya bermula selepas suara sebelumnya habis
+// (masa tetap memotong suara yang panjang). Rantaian terputus sendiri jika suara dihentikan (tukar langkah / ulang).
+function mainBerturut(timernya, senarai, serlah, akhir, i = 0) {
+  if (i >= senarai.length) return akhir();
+  serlah(i);
+  Suara.main(senarai[i], () => {
+    timernya.push(setTimeout(() => mainBerturut(timernya, senarai, serlah, akhir, i + 1), 250));
+  });
+}
+
 // Render pelbagai jenis demo interaktif
 function renderDemo(demo, el, timernya) {
   el.innerHTML = '';
@@ -302,29 +312,19 @@ function renderDemo(demo, el, timernya) {
         bersihkanPentasTimer();
         wrap.classList.remove('bercantum');
         void wrap.offsetWidth;
-        let delay = 0;
-        demo.bahagian.forEach((p, idx) => {
-          const t = setTimeout(() => {
-            if (!el.isConnected) return;
-            const elP = kepinganBox.querySelectorAll('.kepingan-demo')[idx];
-            if (elP) {
-              elP.classList.add('denyut');
-              setTimeout(() => elP.classList.remove('denyut'), 400);
-            }
-            Suara.main(p);
-          }, delay);
-          timernya.push(t);
-          delay += 650;
-        });
-
-        const tAkhir = setTimeout(() => {
+        mainBerturut(timernya, demo.bahagian, (idx) => {
+          const elP = kepinganBox.querySelectorAll('.kepingan-demo')[idx];
+          if (elP) {
+            elP.classList.add('denyut');
+            setTimeout(() => elP.classList.remove('denyut'), 400);
+          }
+        }, () => {
           if (!el.isConnected) return;
           wrap.classList.add('bercantum');
           hasilBox.classList.add('pop');
           setTimeout(() => hasilBox.classList.remove('pop'), 500);
           Suara.main(demo.hasil);
-        }, delay);
-        timernya.push(tAkhir);
+        });
       };
 
       wrap.onclick = mainkan = mainkanAnimasi;
@@ -353,24 +353,14 @@ function renderDemo(demo, el, timernya) {
         bersihkanPentasTimer();
         kataLengkapBox.classList.remove('serlah-kata');
         sukuRow.querySelectorAll('.suku-tag-demo').forEach((x) => x.classList.remove('aktif'));
-        let delay = 0;
-        sukuKata.forEach((s, idx) => {
-          const t = setTimeout(() => {
-            if (!el.isConnected) return;
-            const tags = sukuRow.querySelectorAll('.suku-tag-demo');
-            if (tags[idx]) tags[idx].classList.add('aktif');
-            Suara.main(s);
-          }, delay);
-          timernya.push(t);
-          delay += 600;
-        });
-
-        const tAkhir = setTimeout(() => {
+        mainBerturut(timernya, sukuKata, (idx) => {
+          const tags = sukuRow.querySelectorAll('.suku-tag-demo');
+          if (tags[idx]) tags[idx].classList.add('aktif');
+        }, () => {
           if (!el.isConnected) return;
           kataLengkapBox.classList.add('serlah-kata');
           Suara.main(kataLengkap);
-        }, delay);
-        timernya.push(tAkhir);
+        });
       };
 
       wrap.onclick = mainkan = mainkanAnimasi;
