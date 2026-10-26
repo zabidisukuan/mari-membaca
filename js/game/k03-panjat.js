@@ -39,8 +39,8 @@ GAME['K3'] = {
         <div id="panjatDunia" class="lompat-dunia panjat-dunia">
           <div id="panjatNyawa" class="lompat-nyawa"></div>
           <div id="panjatPetunjuk" class="panjat-petunjuk">${sentuh
-            ? 'Tekan ◀ ▶ untuk bergerak, ⤒ untuk melompat'
-            : '⬅️ ➡️ untuk bergerak · <b>Spacebar</b> untuk melompat'}</div>
+            ? 'Tekan ◀ ▶ untuk bergerak, ⤒ untuk melompat (tekan 2 kali = lompat tinggi)'
+            : '⬅️ ➡️ untuk bergerak · <b>Spacebar</b> untuk melompat (tekan 2 kali = lompat tinggi)'}</div>
           <div id="panjatAlam" class="panjat-alam">
             <div id="panjatWatak" class="panjat-watak">${imgV2(watak + '_lari', '🏃', 'lompat-watak-img')}</div>
           </div>
@@ -72,7 +72,7 @@ GAME['K3'] = {
     let langkah = 0;
     let platform = [];  // { x, y, suku, betul, keadaan: 'aktif'|'kekal'|'runtuh', el, vy }
     let lebarDunia = 200;
-    const p = { x: 12, y: 0, vx: 0, vy: 0, atas: null, diTanah: true, arahKiri: false };
+    const p = { x: 12, y: 0, vx: 0, vy: 0, atas: null, diTanah: true, arahKiri: false, ganda: false };
     const kekunci = { kiri: false, kanan: false, lompat: false };
     let mintaLompat = false;
 
@@ -119,7 +119,7 @@ GAME['K3'] = {
       alam.querySelectorAll('.panjat-bendera').forEach((b) => b.remove());
       platform = [];
       lebarDunia = 200;
-      Object.assign(p, { x: 12, y: 0, vx: 0, vy: 0, atas: null, diTanah: true });
+      Object.assign(p, { x: 12, y: 0, vx: 0, vy: 0, atas: null, diTanah: true, ganda: false });
       buatTingkat(0, 42 + Math.random() * 8);
     };
 
@@ -217,11 +217,18 @@ GAME['K3'] = {
         // Gerak mendatar
         p.vx = (kekunci.kanan ? LARI : 0) - (kekunci.kiri ? LARI : 0);
         if (p.vx) p.arahKiri = p.vx < 0;
-        // Lompat (hanya bila berpijak)
+        // Lompat bila berpijak; tekan sekali lagi di udara = lompat berganda (sekali sahaja)
         if (mintaLompat && (p.diTanah || p.atas)) {
           p.vy = LOMPAT;
           p.atas = null;
           p.diTanah = false;
+          p.ganda = false;
+        } else if (mintaLompat && !p.ganda) {
+          p.vy = LOMPAT;
+          p.ganda = true;
+          elWatak.classList.remove('lompat-ganda');
+          void elWatak.offsetWidth;
+          elWatak.classList.add('lompat-ganda');
         }
         mintaLompat = false;
 

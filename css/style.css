@@ -2316,6 +2316,11 @@ form .besar {
 .panjat-watak.ke-kiri.berlari .lompat-watak-img { animation: larianGoyangKiri 0.22s infinite alternate; }
 .panjat-watak.di-udara .lompat-watak-img { transform: rotate(-8deg); }
 .panjat-watak.ke-kiri.di-udara .lompat-watak-img { transform: scaleX(-1) rotate(-8deg); }
+.panjat-watak.lompat-ganda { animation: lompatGanda 0.4s ease-out; }
+.panjat-watak.ke-kiri.lompat-ganda { animation-name: lompatGandaKiri; }
+
+@keyframes lompatGanda { to { transform: rotate(360deg); } }
+@keyframes lompatGandaKiri { to { transform: rotate(-360deg); } }
 
 @keyframes larianGoyangKiri {
   from { transform: scaleX(-1) translateY(0) rotate(-3deg); }
