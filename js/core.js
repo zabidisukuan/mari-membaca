@@ -43,7 +43,7 @@ const Suara = (() => {
   let sumberSemasa = null;
   let giliran = 0; // bertambah setiap kali suara dihentikan, supaya callback suara lama diabaikan
   // Naikkan nombor ini setiap kali fail audio diganti, supaya telefon tidak guna salinan lama dari cache
-  const VERSI_AUDIO = 11;
+  const VERSI_AUDIO = 12;
   const url = (id) => `assets/audio/${id}.wav?v=${VERSI_AUDIO}`;
   const slug = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 60);
 
